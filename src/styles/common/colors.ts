@@ -4,9 +4,11 @@ export const mainBorderColor = "#D0D7DE";
 export const mainWhiteColor = "#FFFFFF"
 
 export const sectionBgColor = "#F7F8FA";
+export const todoItemHoverColor = "#D0D7DE";
 export const todoItemHoverBorderColor = "#0969DA";
 export const iconHoverColor = "#D3D3D3";
 export const buttonBgColor = "#2DA44E";
+export const buttonHoverBgColor = "#2C974B";
 export const buttonHoverFilter = "opacity(0.6)";
 
 // 유효성 검사 관련
