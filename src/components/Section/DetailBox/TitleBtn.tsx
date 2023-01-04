@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledTitleBtn } from './StyledDetailTitle';
+import { StyledTitleBtn } from './StyledTitleBtn';
 
 interface IProps {
     source: string;
