@@ -1,13 +1,14 @@
 import React from 'react';
-import { AddButton, StyledFooter } from './StyledTodoFooter';
+import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
+import { StyledFooter } from './StyledTodoFooter';
 
 const TodoFooter = () => {
     return (
         <StyledFooter>
             {/* onClick */}
-            <AddButton>
+            <StyledSubmitBtn>
                 New
-            </AddButton>
+            </StyledSubmitBtn>
         </StyledFooter>
     );
 };

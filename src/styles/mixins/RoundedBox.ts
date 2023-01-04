@@ -5,7 +5,7 @@ export const RoundedBox = css`
     display: flex;
     align-items: center;
     padding: 0 ${sizes.space_5x};
-    width: 100%;
+    width: 340px;
     height: ${sizes.inputBoxHeight};
     border-radius: ${sizes.itemBoxRadius};
 `;
