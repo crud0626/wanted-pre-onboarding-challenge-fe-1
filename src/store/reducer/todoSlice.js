@@ -11,7 +11,7 @@ const addTodoItem = createAsyncThunk(
     "todo/ADD",
     async ({ token, item }) => {
         const addedItem = await todoApi.createTodo(token, item);
-        console.log("add!");
+
         if(addedItem) {
             return addedItem;
         }
