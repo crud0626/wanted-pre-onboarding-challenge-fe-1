@@ -78,9 +78,7 @@ class TodoApi {
                     'Authorization': token,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    title: pushData
-                })
+                body: JSON.stringify(pushData)
             }).then(res => res.json());
 
             const { data, details } = response;

@@ -11,10 +11,12 @@ const addTodoItem = createAsyncThunk(
     "todo/ADD",
     async ({ token, item }) => {
         const addedItem = await todoApi.createTodo(token, item);
+        console.log("add!");
         if(addedItem) {
             return addedItem;
         }
-        alert("추가하지 못했습니다.");
+
+        throw new Error(`작업을 실패하였습니다.`);
     }
 );
 
@@ -31,11 +33,10 @@ const updateTodoItem = createAsyncThunk(
     "todo/UPDATE",
     async ({ token, item, id }) => {
         const data = await todoApi.updateTodo(token, item, id);
-        console.log(data);
-        
         if(data) {
             return data;
         }
+
         throw new Error(`작업을 실패하였습니다.`);
     }
 );
@@ -65,6 +66,7 @@ const todoSlice = createSlice({
         },
         UPDATE: (state, action) => {
             const replaceData = action.payload;
+            console.log(replaceData);
             state.items?.forEach(item => {
                 if(item.id === replaceData.id) {
                     item = replaceData;

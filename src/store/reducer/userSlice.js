@@ -61,10 +61,10 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         LOGIN: (state, action) => {
-            state.token = action.payload.token;
+            state.token = action.payload;
         },
         SIGNUP: (state, action) => {
-            state.token = action.payload.token;
+            state.token = action.payload;
         },
         LOGOUT: (state) => {
             state.token = null;
@@ -98,7 +98,8 @@ const userSlice = createSlice({
     }
 });
 
-export const { LOGIN,
+export const { 
+    LOGIN,
     SIGNUP,
     LOGOUT,
     CHANGE_IS_EDIT,

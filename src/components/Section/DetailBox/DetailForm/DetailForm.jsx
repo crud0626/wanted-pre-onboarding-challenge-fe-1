@@ -1,38 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TitleBtn from '../TitleBtn';
 import completeIcon from 'assets/complete_icon.png';
 import { StyledDetailForm } from './StyledDetailForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTodoItem, updateTodoItem } from 'store/reducer/todoSlice';
+import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 
 const DetailForm = () => {
     const dispatch = useDispatch();
     const { token, selectedItem } = useSelector((state) => state.user);
-    const [formData, setFormData] = useState({
-        title: "",
-        content: ""
-    });
 
-    const onChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    }
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         if(token) {
+            const { title, content } = event.target;
+            
+            const formData = {
+                title: title.value,
+                content: content.value
+            };
+
             if(selectedItem) {
-                dispatch(updateTodoItem({ 
+                await dispatch(updateTodoItem({ 
                     token, 
                     item: formData, 
                     id: selectedItem.id 
-                }));
+                }))
+                .then(({ payload }) => {
+                    if(payload) {
+                        dispatch(CHANGE_IS_EDIT());
+                        dispatch(CHANGE_SELECTED_ITEM(payload));
+                    }
+                })
             } else {
-                dispatch(addTodoItem({ token, item: formData }));
+                await dispatch(addTodoItem({ token, item: formData }))
+                .then(({ payload }) => {
+                    if(payload) {
+                        dispatch(CHANGE_IS_EDIT());
+                    }
+                })
             }
         }
     }
@@ -43,7 +50,6 @@ const DetailForm = () => {
                 <input 
                     type="text" 
                     name="title" 
-                    onChange={onChange}
                 />
                 <div className='btn_wrapper'>
                     <TitleBtn
@@ -54,7 +60,7 @@ const DetailForm = () => {
                 </div>
             </div>
             <div className='content'>
-                <textarea name="content" onChange={onChange}></textarea>
+                <textarea name="content"></textarea>
             </div>
         </StyledDetailForm>
     );
