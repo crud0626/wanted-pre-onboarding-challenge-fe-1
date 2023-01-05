@@ -3,7 +3,7 @@ import TitleBtn from '../TitleBtn';
 import completeIcon from 'assets/complete_icon.png';
 import { StyledDetailForm } from './StyledDetailForm';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodoItem, updateTodoItem } from 'reducer/todoSlice';
+import { addTodoItem, updateTodoItem } from 'store/reducer/todoSlice';
 
 const DetailForm = () => {
     const dispatch = useDispatch();

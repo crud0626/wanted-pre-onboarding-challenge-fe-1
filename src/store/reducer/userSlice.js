@@ -88,8 +88,14 @@ const userSlice = createSlice({
     }
 });
 
-export const { CHANGE_IS_EDIT, LOGIN } = userSlice.actions;
+export const { LOGIN,
+    SIGNUP,
+    LOGOUT,
+    CHANGE_IS_EDIT,
+    CHANGE_SELECTED_ITEM,
+    CLEAR_SELECTED_ITEM,
+} = userSlice.actions;
 
-export { requestLogin };
+export { requestLogin, requestSignUp };
 
 export default userSlice;

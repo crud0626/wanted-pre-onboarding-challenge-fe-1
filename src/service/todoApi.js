@@ -5,13 +5,21 @@ class TodoApi {
         try {
             const response = await fetch(`${END_POINT}`, {
                 headers: {
-                    Authorization: token
+                    'Authorization': token
                 }
             }).then(res => res.json());
+            const { data, details } = response;
 
-            if(response.data) {
-                return response.data;
+            if(data) {
+                return data;
             }
+
+            if(details) {
+                alert(`에러가 발생했습니다. ${details}`);
+                return;
+            }
+
+            throw new Error();
         } catch (error) {
             throw new Error(`통신 중 에러가 발생했습니다. ${error}`);
         }

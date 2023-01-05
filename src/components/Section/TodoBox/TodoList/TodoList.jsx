@@ -1,12 +1,21 @@
 import React from 'react';
 import StyledTodoList from './StyledTodoList';
 import TodoItem from './TodoItem/TodoItem';
+import { useSelector } from 'react-redux';
 
 const TodoList = () => {
-    // 아이템 관련 상태 가져와야함.
+    const { items }= useSelector(state => state.todo);
     return (
         <StyledTodoList>
-            <TodoItem />
+            {
+                items &&
+                items.map(item => 
+                    <TodoItem 
+                        key={item.id}
+                        item={item}
+                    />
+                )
+            }
         </StyledTodoList>
     );
 };

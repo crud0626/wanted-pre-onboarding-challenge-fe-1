@@ -22,9 +22,7 @@ const addTodoItem = createAsyncThunk(
 const getTodoItems = createAsyncThunk(
     "todo/GET",
     async ({ token }) => {
-        const todos = await todoApi.getTodos(token)
-            .then((items) => todos.push(...items));
-
+        const todos = await todoApi.getTodos(token);
         return todos;
    }
 );
@@ -42,7 +40,7 @@ const updateTodoItem = createAsyncThunk(
     }
 );
 
-const deleteTodoItem = createAsyncThunk(
+const requestDeleteItem = createAsyncThunk(
     "todo/DELETE", 
     async ({ token, id }) => {
         if(id) {
@@ -96,7 +94,10 @@ const todoSlice = createSlice({
                     state.items = replaceItems;
                 }
             })
-            .addCase(deleteTodoItem.fulfilled, (state, action) => {
+            .addCase(getTodoItems.fulfilled, (state, action) => {
+                state.items = action.payload;
+            })
+            .addCase(requestDeleteItem.fulfilled, (state, action) => {
                 const deleteId = action.payload;
                 const replaceItems = state.items?.filter(item => item.id !== deleteId);
                 
@@ -107,11 +108,19 @@ const todoSlice = createSlice({
     }
 });
 
+export const {
+    ADD,
+    GET,
+    UPDATE,
+    DELETE,
+    CLEAR
+} = todoSlice.actions;
+
 export {
     addTodoItem,
     getTodoItems,
     updateTodoItem,
-    deleteTodoItem
+    requestDeleteItem
 };
 
 export default todoSlice;

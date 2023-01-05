@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestLogin } from 'reducer/userSlice';
+import { requestLogin } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
 import { StyledLoginBox } from './StyledLoginBox';
 import { useNavigate } from 'react-router-dom';
+import { getTodoItems } from 'store/reducer/todoSlice';
 
 const LoginBox = () => {
     const dispatch = useDispatch(), navigate = useNavigate();
@@ -24,6 +25,7 @@ const LoginBox = () => {
     useEffect(() => {
         if(token) {
             window.localStorage.setItem("mtd-uid", token);
+            dispatch(getTodoItems({ token }));
             navigate('/');
         }
     });

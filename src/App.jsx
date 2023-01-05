@@ -4,7 +4,7 @@ import Header from './components/Header/Header';
 import Section from './components/Section/Section';
 import GlobalStyle from './styles/common/GlobalStyle';
 import { Provider } from 'react-redux';
-import { store } from 'reducer/store';
+import { store } from 'store/store';
 
 function App() {
   return (

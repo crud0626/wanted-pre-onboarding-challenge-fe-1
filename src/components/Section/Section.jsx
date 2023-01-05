@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import StyledSection from './StyledSection';
 import { useDispatch } from 'react-redux';
-import { LOGIN } from 'reducer/userSlice';
-import { getTodoItems } from 'reducer/todoSlice';
+import { LOGIN } from 'store/reducer/userSlice';
+import { getTodoItems } from 'store/reducer/todoSlice';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from 'pages/Home';
 import SignUp from 'pages/SignUp';
