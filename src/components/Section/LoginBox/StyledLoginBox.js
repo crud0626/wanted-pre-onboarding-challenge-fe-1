@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import WrapperBox from "styles/mixins/WrapperBox";
 import * as sizes from 'styles/common/sizes';
+import * as colors from 'styles/common/colors';
 
 const StyledLoginBox = styled.div`
     display: flex;
@@ -18,6 +19,16 @@ const StyledLoginBox = styled.div`
 
         & > * {
             margin-top: ${sizes.space_6x};
+        }
+    }
+
+    & .signUpBtn {
+        margin-top: ${sizes.space_2x};
+        color: ${colors.linkBtnColor};
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 `;

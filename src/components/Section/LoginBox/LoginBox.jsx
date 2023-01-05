@@ -22,6 +22,10 @@ const LoginBox = () => {
         ));
     }
 
+    const moveSignUp = () => {
+        navigate('/signup');
+    }
+
     useEffect(() => {
         if(token) {
             window.localStorage.setItem("mtd-uid", token);
@@ -48,7 +52,7 @@ const LoginBox = () => {
                     Log in
                 </StyledSubmitBtn>
             </form>
-            {/* 회원가입 버튼 추가 */}
+            <button className='signUpBtn' onClick={moveSignUp}>회원 가입</button>
         </StyledLoginBox>
     );
 };
