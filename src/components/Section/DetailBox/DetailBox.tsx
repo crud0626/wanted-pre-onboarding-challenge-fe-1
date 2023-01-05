@@ -1,5 +1,6 @@
 import React from 'react';
 import DetailContent from './DetailContent/DetailContent';
+import DetailForm from './DetailForm/DetailForm';
 import { StyledDetailBox } from './StyledDetailBox';
 
 const DetailBox = () => {
