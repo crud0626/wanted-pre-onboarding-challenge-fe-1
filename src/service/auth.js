@@ -1,9 +1,7 @@
-import { User } from "types/User";
-
 const END_POINT = "http://localhost:8080/users";
 
 class AuthService {
-    login = async (loginData: User): Promise<string | void> => {
+    login = async (loginData) => {
         try {
             const response = await fetch(`${END_POINT}/login`, {
                 method: "POST",
@@ -21,7 +19,7 @@ class AuthService {
         }
     }
 
-    signUp = async (loginData: User): Promise<string | void> => {
+    signUp = async (loginData) => {
         try {
             const response = await fetch(`${END_POINT}/create`, {
                 method: "POST",

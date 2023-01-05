@@ -1,15 +1,10 @@
 import React from 'react';
 import { StyledTitleBtn } from './StyledTitleBtn';
 
-interface IProps {
-    source: string;
-    altName: string;
-}
-
-const TitleBtn = ({ source, altName }: IProps) => {
+const TitleBtn = ({ type, source, altName }) => {
     // onClick 추가
     return (
-        <StyledTitleBtn>
+        <StyledTitleBtn type={type}>
             <img 
                 src={source} 
                 alt={altName}

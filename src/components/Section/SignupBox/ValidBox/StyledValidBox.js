@@ -2,11 +2,7 @@ import styled from "styled-components";
 import * as sizes from 'styles/common/sizes';
 import * as colors from 'styles/common/colors';
 
-interface IProps {
-    isValid: boolean;
-}
-
-const StyledValidBox = styled.div<IProps>`
+const StyledValidBox = styled.div`
     display: flex;
     align-items: center;
     margin-top: ${sizes.space_2x};

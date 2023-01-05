@@ -2,12 +2,7 @@ import React from 'react';
 import checkIcon from 'assets/check_icon.png';
 import { StyledValidBox } from './StyledValidBox';
 
-interface IProps {
-    isValid: boolean;
-    displayText: string;
-}
-
-const ValidBox = ({ isValid, displayText }: IProps) => {
+const ValidBox = ({ isValid, displayText }) => {
     return (
         <StyledValidBox isValid={isValid}>
             <img 

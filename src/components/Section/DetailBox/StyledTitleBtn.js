@@ -2,7 +2,9 @@ import styled from "styled-components";
 import * as sizes from 'styles/common/sizes';
 import * as colors from 'styles/common/colors';
 
-const StyledTitleBtn = styled.button`
+const StyledTitleBtn = styled.button.attrs(props => ({
+    type: props.type || 'button',
+}))`
     width: ${sizes.detailIconSize};
     height: ${sizes.detailIconSize};
     cursor: pointer;

@@ -1,9 +1,7 @@
-import { Todo, TodoItem } from "types/Todos";
-
 const END_POINT = "http://localhost:8080/todos";
 
 class TodoApi {
-    getTodos = async (token: string): Promise<any> => {
+    getTodos = async (token) => {
         try {
             const response = await fetch(`${END_POINT}`, {
                 headers: {
@@ -12,8 +10,6 @@ class TodoApi {
             }).then(res => res.json());
 
             if(response.data) {
-                console.log(response.data);
-                
                 return response.data;
             }
         } catch (error) {
@@ -21,7 +17,7 @@ class TodoApi {
         }
     }
 
-    getTodoById = async (token: string, itemId: string) => {
+    getTodoById = async (token, itemId) => {
         try {
             const response = await fetch(`${END_POINT}/${itemId}`, {
                 headers: {
@@ -38,7 +34,9 @@ class TodoApi {
         }
     }
 
-    createTodo = async (token: string, item: Todo) => {
+    createTodo = async (token, item) => {
+        console.log("create todo!");
+        
         try {
             const response = await fetch(END_POINT, {
                 method: "POST",
@@ -59,14 +57,14 @@ class TodoApi {
     }
 
     // 기존께 들어오므로 TodoItem으로 해야함.
-    updateTodo = async (token: string, item: TodoItem) => {
-        const pushData: Todo = {
+    updateTodo = async (token, item, id) => {
+        const pushData = {
             title: item.title,
             content: item.content
         }
 
         try {
-            const response = await fetch(`${END_POINT}/${item.id}`, {
+            const response = await fetch(`${END_POINT}/${id}`, {
                 method: "PUT",
                 headers: {
                     'Authorization': token,
@@ -85,7 +83,7 @@ class TodoApi {
         }
     }
 
-    deleteTodo = async (token: string, itemId: string) => {
+    deleteTodo = async (token, itemId) => {
         try {
             const response = await fetch(`${END_POINT}/${itemId}`, {
                 method: "DELETE",
