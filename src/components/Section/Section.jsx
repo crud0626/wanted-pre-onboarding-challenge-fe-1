@@ -9,7 +9,7 @@ import SignUp from 'pages/SignUp';
 import Login from 'pages/Login';
 
 const Section = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(), navigate = useNavigate();
     useEffect(() => {
         const storageToken = window.localStorage.getItem("mtd-uid");
         if(storageToken) {
@@ -17,6 +17,9 @@ const Section = () => {
             dispatch(getTodoItems({ token: storageToken }));
             return;
         }
+
+        // 토큰이 없다면 login 페이지로 이동
+        navigate('/login');
     }, []);
 
     return (

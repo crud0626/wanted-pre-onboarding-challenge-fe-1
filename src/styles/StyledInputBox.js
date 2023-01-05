@@ -4,7 +4,8 @@ import * as colors from 'styles/common/colors';
 
 // props: text | password
 const StyledInputBox = styled.input.attrs((props) => ({
-    type: props.type || "text"
+    type: props.type || "text",
+    name: props.name || ""
 }))`
     ${RoundedBox}
     border: 1px solid ${colors.mainBorderColor};

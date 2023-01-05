@@ -11,12 +11,26 @@ const initialState = {
 const requestLogin = createAsyncThunk(
     "user/LOGIN",
     async (userData) => {
-        const token = await authService.login(userData);
-        if (token) {
-            return token;
-        }
+        try {
+            const response = await authService.login(userData);
+            const { token, details } = response;
 
-        alert("로그인이 실패 했습니다.");
+            if(token) {
+                alert("로그인에 성공하였습니다.");
+                return token;
+            };
+
+            if(details) {
+                alert(`로그인에 실패하였습니다. ${details}`);
+                return;
+            }
+
+            throw new Error();
+        } catch (error) {
+            console.log(error);
+            alert("로그인에 실패 했습니다. 다시 시도해주세요.");
+            console.log(`에러가 발생했습니다. ${error.message}`);
+        }
     }
 );
 
@@ -75,5 +89,7 @@ const userSlice = createSlice({
 });
 
 export const { CHANGE_IS_EDIT, LOGIN } = userSlice.actions;
+
+export { requestLogin };
 
 export default userSlice;
