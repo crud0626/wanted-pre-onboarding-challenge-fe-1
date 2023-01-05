@@ -21,15 +21,13 @@ const requestLogin = createAsyncThunk(
             };
 
             if(details) {
-                alert(`로그인에 실패하였습니다. ${details}`);
-                return;
+                throw new Error(details);
             }
 
-            throw new Error();
+            throw new Error("Undefined");
         } catch (error) {
-            console.log(error);
-            alert("로그인에 실패 했습니다. 다시 시도해주세요.");
             console.log(`에러가 발생했습니다. ${error.message}`);
+            alert("로그인에 실패 했습니다. 다시 시도해주세요.");
         }
     }
 );
@@ -37,12 +35,24 @@ const requestLogin = createAsyncThunk(
 const requestSignUp = createAsyncThunk(
     "user/SIGNUP",
     async (userData) => {
-        const token = await authService.signUp(userData);
-        if (token) {
-            return token;
-        }
+        try {
+            const response = await authService.signUp(userData);
+            const { token, details } = response;
+    
+            if (token) {
+                alert("회원가입에 성공하였습니다.");
+                return token;
+            }
 
-        alert("회원가입이 실패 했습니다.");
+            if(details) {
+                throw new Error(details);
+            }
+
+            throw new Error("Undefined");
+        } catch (error) {
+            console.log(`에러가 발생했습니다. ${error.message}`);
+            alert("회원가입에 실패 했습니다. 다시 시도해주세요.");
+        }
     }
 );
 

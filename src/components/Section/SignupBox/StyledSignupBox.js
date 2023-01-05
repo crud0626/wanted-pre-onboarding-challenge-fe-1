@@ -1,6 +1,31 @@
 import styled from "styled-components";
 import WrapperBox from "styles/mixins/WrapperBox";
 import * as sizes from 'styles/common/sizes';
+import * as colors from 'styles/common/colors';
+import { StyledSubmitBtn } from "styles/StyledSubmitBtn";
+
+// isValid가 false일 때 disabled되도록 처리
+const SignUpSubmitBtn = styled(StyledSubmitBtn)`
+    ${props => 
+        !props.isValid &&
+        `
+            border: 1px solid ${colors.mainBorderColor};
+            background: ${colors.disableBgColor};
+            color: ${colors.disableTextColor};
+            cursor: auto;
+        `
+    }
+    &:hover {
+        ${props => 
+            !props.isValid &&
+            `
+                border: 1px solid ${colors.mainBorderColor};
+                background: ${colors.disableBgColor};
+                color: ${colors.disableTextColor};
+            `
+        }
+    }
+`;
 
 const StyledSignupBox = styled.div`
     display: flex;
@@ -22,4 +47,4 @@ const StyledSignupBox = styled.div`
     }
 `;
 
-export { StyledSignupBox };
+export { StyledSignupBox, SignUpSubmitBtn };

@@ -14,5 +14,5 @@ export const linkBtnColor = "#0969DA";
 
 // 유효성 검사 관련
 export const disableTextColor = "#808080";
-export const disableIconColor = "#D9D9D9";
-export const enableIconColor = "#F1E05A";
+export const disableBgColor = "#D9D9D9";
+// export const enableIconColor = "#F1E05A";

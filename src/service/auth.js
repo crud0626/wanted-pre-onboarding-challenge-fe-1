@@ -30,7 +30,7 @@ class AuthService {
             }).then(res => res.json());
 
             if(response) {
-                return response.token;
+                return response;
             }
         } catch (error) {
             throw new Error(`회원가입 도중 에러가 발생했습니다. ${error}`);
