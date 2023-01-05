@@ -1,27 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import StyledSection from './StyledSection';
-import { useDispatch } from 'react-redux';
-import { LOGIN } from 'store/reducer/userSlice';
-import { getTodoItems } from 'store/reducer/todoSlice';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from 'pages/Home';
 import SignUp from 'pages/SignUp';
 import Login from 'pages/Login';
 
 const Section = () => {
-    const dispatch = useDispatch(), navigate = useNavigate();
-    useEffect(() => {
-        const storageToken = window.localStorage.getItem("mtd-uid");
-        if(storageToken) {
-            dispatch(LOGIN(storageToken));
-            dispatch(getTodoItems({ token: storageToken }));
-            return;
-        }
-
-        // 토큰이 없다면 login 페이지로 이동
-        navigate('/login');
-    }, []);
-
     return (
         <StyledSection>
             <Routes>
