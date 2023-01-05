@@ -8,18 +8,14 @@ class TodoApi {
                     'Authorization': token
                 }
             }).then(res => res.json());
+
             const { data, details } = response;
 
-            if(data) {
-                return data;
-            }
+            if(data) return data;
 
-            if(details) {
-                alert(`에러가 발생했습니다. ${details}`);
-                return;
-            }
+            if(details) throw new Error(details);
 
-            throw new Error();
+            throw new Error("Undefined");
         } catch (error) {
             throw new Error(`통신 중 에러가 발생했습니다. ${error}`);
         }
@@ -33,18 +29,19 @@ class TodoApi {
                 }
             }).then(res => res.json());
 
-            if(response.data) {
-                return response.data;
-            }
+            const { data, details } = response;
+
+            if(data) return data;
+
+            if(details) throw new Error(details);
             
+            throw new Error("Undefined");
         } catch (error) {
             throw new Error(`통신 중 에러가 발생했습니다. ${error}`);
         }
     }
 
     createTodo = async (token, item) => {
-        console.log("create todo!");
-        
         try {
             const response = await fetch(END_POINT, {
                 method: "POST",
@@ -55,10 +52,13 @@ class TodoApi {
                 body: JSON.stringify(item)
             }).then(res => res.json());
 
-            if(response.data) {
-                return response.data;
-            }
+            const { data, details } = response;
+
+            if(data) return data;
+
+            if(details) throw new Error(details);
             
+            throw new Error("Undefined");
         } catch (error) {
             throw new Error(`통신 중 에러가 발생했습니다. ${error}`);
         }
@@ -83,9 +83,13 @@ class TodoApi {
                 })
             }).then(res => res.json());
 
-            if(response.data) {
-                return response.data;
-            }
+            const { data, details } = response;
+
+            if(data) return data;
+
+            if(details) throw new Error(details);
+            
+            throw new Error("Undefined");
         } catch (error) {
             throw new Error(`통신 중 에러가 발생했습니다. ${error}`);
         }
@@ -100,10 +104,13 @@ class TodoApi {
                 }
             }).then(res => res.json());
 
-            if(response.data) {
-                return response.data;
-            }
+            const { data, details } = response;
+
+            if(data === null) return true;
+
+            if(details) throw new Error(details);
             
+            throw new Error("Undefined");
         } catch (error) {
             throw new Error(`통신 중 에러가 발생했습니다. ${error}`);
         }

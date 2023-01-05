@@ -43,11 +43,13 @@ const updateTodoItem = createAsyncThunk(
 const requestDeleteItem = createAsyncThunk(
     "todo/DELETE", 
     async ({ token, id }) => {
-        if(id) {
-            const response = todoApi.deleteTodo(token, id)
-            if(response !== null) return id;
+        try {
+            const response = await todoApi.deleteTodo(token, id);
+            if(response) return id;
+
+        } catch (error) {
+            throw new Error(`작업을 실패하였습니다.`);
         }
-        throw new Error(`작업을 실패하였습니다.`);
     }
 );
 
