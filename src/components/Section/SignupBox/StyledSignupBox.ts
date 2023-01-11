@@ -4,8 +4,11 @@ import * as sizes from 'styles/common/sizes';
 import * as colors from 'styles/common/colors';
 import { StyledSubmitBtn } from "styles/StyledSubmitBtn";
 
-// isValid가 false일 때 disabled되도록 처리
-const SignUpSubmitBtn = styled(StyledSubmitBtn)`
+interface IProps {
+    isValid: boolean;
+}
+
+const SignUpSubmitBtn = styled(StyledSubmitBtn)<IProps>`
     ${props => 
         !props.isValid &&
         `

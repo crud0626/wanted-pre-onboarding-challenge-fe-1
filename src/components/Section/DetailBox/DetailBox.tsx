@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from 'store/store';
 import DetailContent from './DetailContent/DetailContent';
 import DetailForm from './DetailForm/DetailForm';
 import { StyledDetailBox } from './StyledDetailBox';
 
 const DetailBox = () => {
-    const { isEdit } = useSelector((state) => state.user);
+    const { isEdit } = useSelector((state: RootState) => state.user);
 
     return (
         <StyledDetailBox>

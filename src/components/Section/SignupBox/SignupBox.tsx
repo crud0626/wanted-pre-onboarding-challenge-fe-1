@@ -1,43 +1,54 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { requestSignUp } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { SignUpSubmitBtn, StyledSignupBox } from './StyledSignupBox';
 import { emailRegex, passwordRegex } from 'utils/regex';
 import ValidBox from './ValidBox/ValidBox';
+import { IUserForm } from 'types/auth/auth.type';
+import { useAppDispatch } from 'store/store';
 
 const SignupBox = () => {
-    const dispatch = useDispatch(), navigate = useNavigate();
+    const dispatch = useAppDispatch(), navigate = useNavigate();
+
+    const [formData, setFormData] = useState<IUserForm>({
+        email: '',
+        password: ''
+    });
     const [isValidEmail, setIsValidEmail] = useState(false);
     const [isValidPW, setIsValidPW] = useState(false);
 
-    const checkEmailFormat = ({ target }) => {
-        setIsValidEmail(target.value.match(emailRegex) ? true : false);
+    const checkEmailFormat = () => {
+        setIsValidEmail(formData.email.match(emailRegex) ? true : false);
     }
 
-    const checkPasswordFormat = ({ target }) => {
-        setIsValidPW(target.value.match(passwordRegex) ? true : false);
+    const checkPasswordFormat = () => {
+        setIsValidPW(formData.password.match(passwordRegex) ? true : false);
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
 
         if(isValidEmail && isValidPW) {
-            const { email, password } = event.target;
-            const userData = {
-                email: email.value,
-                password: password.value
-            };
-
-            await dispatch(requestSignUp(userData))
+            dispatch(requestSignUp(formData))
             .then(({ payload }) => {
-                if(payload) {
+                if(payload && typeof payload === 'string') {
                     window.localStorage.setItem("mtd-uid", payload);
                     navigate('/');
                 }
-            });
+            })
         }
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+
+        if(name === "email") checkEmailFormat();
+        if(name === "password") checkPasswordFormat();
     }
 
     return (
@@ -49,7 +60,7 @@ const SignupBox = () => {
                         type={"text"}
                         name={"email"}
                         placeholder={"이메일을 입력해주세요." }
-                        onKeyUp={checkEmailFormat}
+                        onChange={handleChange}
                     />
                     <ValidBox 
                         isValid={isValidEmail}
@@ -61,7 +72,7 @@ const SignupBox = () => {
                         type={"password"}
                         name={"password"}
                         placeholder={"패스워드를 입력해주세요."}
-                        onKeyUp={checkPasswordFormat}
+                        onChange={handleChange}
                     />
                     <ValidBox 
                         isValid={isValidPW}

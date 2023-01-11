@@ -6,6 +6,7 @@ import { CHANGE_IS_EDIT, CLEAR_SELECTED_ITEM } from 'store/reducer/userSlice';
 
 const TodoFooter = () => {
     const dispatch = useDispatch();
+    
     const handleClick = () => {
         dispatch(CHANGE_IS_EDIT(true));
         dispatch(CLEAR_SELECTED_ITEM());

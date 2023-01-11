@@ -1,25 +1,35 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { requestLogin } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
 import { StyledLoginBox } from '../../../styles/StyledLoginBox';
 import { useNavigate } from 'react-router-dom';
 import { getTodoItems } from 'store/reducer/todoSlice';
+import { RootState, useAppDispatch } from 'store/store';
+import { IUserForm } from 'types/auth/auth.type';
 
 const LoginBox = () => {
-    const dispatch = useDispatch(), navigate = useNavigate();
-    const { token } = useSelector(state => state.user);
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const { email, password } = event.target;
+    const dispatch = useAppDispatch(), navigate = useNavigate();
+    const { token } = useSelector((state: RootState) => state.user);
 
-        dispatch(requestLogin(
-            {
-                email: email.value,
-                password: password.value
-            }
-        ));
+    const [formData, setFormData] = useState<IUserForm>({
+        email: '',
+        password: ''
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    }
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        
+        dispatch(requestLogin(formData));
     }
 
     const moveSignUp = () => {
@@ -42,11 +52,13 @@ const LoginBox = () => {
                     type={"text"}
                     name={"email"}
                     placeholder="이메일을 입력해주세요." 
+                    onChange={handleChange}
                 />
                 <StyledInputBox 
                     type={"password"}
                     name={"password"}
                     placeholder="패스워드를 입력해주세요."
+                    onChange={handleChange}
                 />
                 <StyledSubmitBtn>
                     Log in

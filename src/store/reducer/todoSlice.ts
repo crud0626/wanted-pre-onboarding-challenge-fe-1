@@ -1,53 +1,64 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { todoApi } from 'service/todoApi';
+import { ITodo, ITodoItem } from 'types/todo.type';
 
-const initialState = {
+export interface TodoState {
+    items: null | ITodoItem[];
+}
+
+const initialState: TodoState = {
     items: null
 }
 
 // ASYNC THUNK FUCTIONS
-// addTodoItem
+/**
+ * @param token - string
+ * @param item - ITODO
+ */
 const addTodoItem = createAsyncThunk(
+    // 이름변경 예정 createTodoItem으로
     "todo/ADD",
-    async ({ token, item }) => {
+    async ({ token, item }: { token: string, item: ITodo}): Promise<void | ITodoItem> => {
         const addedItem = await todoApi.createTodo(token, item);
 
-        if(addedItem) {
-            return addedItem;
-        }
-
-        throw new Error(`작업을 실패하였습니다.`);
+        if(addedItem) return addedItem;
     }
 );
 
-// // getTodoItem
+/**
+ * @param token - string
+ */
 const getTodoItems = createAsyncThunk(
     "todo/GET",
-    async ({ token }) => {
-        const todos = await todoApi.getTodos(token);
-        return todos;
+    async ({ token }: { token: string}): Promise<void | ITodoItem[]> => {
+        const userItems = await todoApi.getTodos(token);
+
+        if(userItems) return userItems;
    }
 );
 
+/**
+ * @param token - string
+ * @param item - ITODO
+ * @param id - string
+ */
 const updateTodoItem = createAsyncThunk(
     "todo/UPDATE",
-    async ({ token, item, id }) => {
-        const data = await todoApi.updateTodo(token, item, id);
-        if(data) {
-            return data;
-        }
+    async ({ token, item, id }: { token: string, item: ITodo, id: string }) => {
+        const changedData = await todoApi.updateTodo(token, item, id);
 
-        throw new Error(`작업을 실패하였습니다.`);
+        if(changedData) return changedData;
     }
 );
 
 const requestDeleteItem = createAsyncThunk(
     "todo/DELETE", 
-    async ({ token, id }) => {
+    async ({ token, id }: { token: string, id: string }) => {
+
         try {
             const response = await todoApi.deleteTodo(token, id);
-            if(response) return id;
 
+            if(response) return id;
         } catch (error) {
             throw new Error(`작업을 실패하였습니다.`);
         }
@@ -59,14 +70,19 @@ const todoSlice = createSlice({
     initialState,
     reducers: {
         ADD: (state, action) => {
-            state.items.push(action.payload.items);
+            if(state.items) {
+                state.items.push(action.payload.items);
+                return;
+            };
+            
+            state.items = action.payload.items;
         },
         GET: (state, action) => {
             state.items = action.payload;
         },
         UPDATE: (state, action) => {
             const replaceData = action.payload;
-            console.log(replaceData);
+            
             state.items?.forEach(item => {
                 if(item.id === replaceData.id) {
                     item = replaceData;
@@ -85,10 +101,17 @@ const todoSlice = createSlice({
         builder
             .addCase(addTodoItem.fulfilled, (state, action) => {
                 if(action.payload) {
-                    state.items?.push(action.payload);
+                    if(state.items) {
+                        state.items.push(action.payload);
+                        return;
+                    };
+
+                    state.items = [action.payload];
                 }
             })
             .addCase(updateTodoItem.fulfilled, (state, action) => {
+                if(!action.payload) return;
+
                 const replaceData = action.payload;
                 const replaceItems = state.items?.map(item => 
                     item.id === replaceData.id ? replaceData : item
@@ -99,9 +122,11 @@ const todoSlice = createSlice({
                 }
             })
             .addCase(getTodoItems.fulfilled, (state, action) => {
-                state.items = action.payload;
+                if(action.payload) state.items = action.payload;
             })
             .addCase(requestDeleteItem.fulfilled, (state, action) => {
+                console.log(action.payload);
+                
                 const deleteId = action.payload;
                 const replaceItems = state.items?.filter(item => item.id !== deleteId);
                 

@@ -1,33 +1,37 @@
 import React from 'react';
 import { StyledDetailContent } from './StyledDetailContent';
 import TitleBtn from '../TitleBtn';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { requestDeleteItem } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CLEAR_SELECTED_ITEM } from 'store/reducer/userSlice';
+import { RootState, useAppDispatch } from 'store/store';
 import deleteIcon from 'assets/delete_icon.png';
 import editIcon from 'assets/edit_icon.png';
 
 const DetailContent = () => {
-    const dispatch = useDispatch(), navigate = useNavigate();
-    const { token, selectedItem } = useSelector(state => state.user);
+    const dispatch = useAppDispatch(), navigate = useNavigate();
+    const { token, selectedItem } = useSelector((state: RootState) => state.user);
 
     const onEdit = () => {
-        dispatch(CHANGE_IS_EDIT());
+        dispatch(CHANGE_IS_EDIT(null));
     }
 
     const onRemove = async () => {
-        await dispatch(requestDeleteItem({ 
-            token, 
-            id: selectedItem.id 
-        }))
-        .then(({ payload }) => {
-            console.log(payload);
-            if(payload) {
-                dispatch(CLEAR_SELECTED_ITEM());
-                navigate('/');
-            }
-        });
+        if(token && selectedItem?.id) {
+            await dispatch(requestDeleteItem({ 
+                token, 
+                id: selectedItem.id 
+            }))
+            // ID를 리턴함.
+            .then(({ payload }) => {
+                if(payload && typeof payload === 'string') {
+                    dispatch(CLEAR_SELECTED_ITEM());
+                    navigate('/');
+                }
+            });
+        }
+
     }
 
     return (

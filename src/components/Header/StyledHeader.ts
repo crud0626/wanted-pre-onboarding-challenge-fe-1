@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import * as sizes from '../../styles/common/sizes';
-import * as colors from '../../styles/common/colors';
+import * as sizes from 'styles/common/sizes';
+import * as colors from 'styles/common/colors';
 import { RoundedBox } from 'styles/mixins/RoundedBox';
 
 const LogoutBtn = styled.button`

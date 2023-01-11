@@ -1,7 +1,15 @@
+import { IUserForm } from 'types/auth/auth.type';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from "service/auth";
+import { ITodoItem } from 'types/todo.type';
 
-const initialState = {
+export interface UserState {
+    token: null | string;
+    isEdit: boolean;
+    selectedItem: null | ITodoItem;
+}
+
+const initialState: UserState = {
     token: null,
     isEdit: false,
     selectedItem: null
@@ -10,23 +18,20 @@ const initialState = {
 // Async Thunk functions
 const requestLogin = createAsyncThunk(
     "user/LOGIN",
-    async (userData) => {
+    async (userData: IUserForm): Promise<void | string> => {
         try {
-            const response = await authService.login(userData);
-            const { token, details } = response;
-
-            if(token) {
-                alert("로그인에 성공하였습니다.");
-                return token;
-            };
-
-            if(details) {
-                throw new Error(details);
-            }
+            const token = await authService.login(userData);
+            console.log(token);
+            if (token) return token;
 
             throw new Error("Undefined");
         } catch (error) {
-            console.log(`에러가 발생했습니다. ${error.message}`);
+            console.error(
+                error instanceof Error 
+                ? `에러가 발생했습니다. ${error.message}` 
+                : `알 수 없는 에러가 발생했습니다. ${error}`
+            );
+
             alert("로그인에 실패 했습니다. 다시 시도해주세요.");
         }
     }
@@ -34,23 +39,20 @@ const requestLogin = createAsyncThunk(
 
 const requestSignUp = createAsyncThunk(
     "user/SIGNUP",
-    async (userData) => {
+    async (userData: IUserForm): Promise<void | string> => {
         try {
-            const response = await authService.signUp(userData);
-            const { token, details } = response;
-    
-            if (token) {
-                alert("회원가입에 성공하였습니다.");
-                return token;
-            }
+            const token = await authService.signUp(userData);
 
-            if(details) {
-                throw new Error(details);
-            }
+            if (token) return token;
 
             throw new Error("Undefined");
         } catch (error) {
-            console.log(`에러가 발생했습니다. ${error.message}`);
+            console.error(
+                error instanceof Error 
+                ? `에러가 발생했습니다. ${error.message}` 
+                : `알 수 없는 에러가 발생했습니다. ${error}`
+            );
+            
             alert("회원가입에 실패 했습니다. 다시 시도해주세요.");
         }
     }
@@ -70,10 +72,10 @@ const userSlice = createSlice({
             state.token = null;
         },
         CHANGE_IS_EDIT: (state, action) => {
-            if(action.payload !== undefined) {
-                state.isEdit = action.payload;
-            } else {
+            if(action.payload === null) {
                 state.isEdit = !state.isEdit;
+            } else {
+                state.isEdit = action.payload;
             }
         },
         CHANGE_SELECTED_ITEM: (state, action) => {

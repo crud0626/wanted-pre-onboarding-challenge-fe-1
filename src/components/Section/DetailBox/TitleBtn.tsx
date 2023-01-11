@@ -1,7 +1,14 @@
 import React from 'react';
-import { StyledTitleBtn } from './StyledTitleBtn';
+import { ButtonTypeAttribute, StyledTitleBtn } from './StyledTitleBtn';
 
-const TitleBtn = ({ type, source, altName, onClick }) => {
+interface IProps {
+    type?: ButtonTypeAttribute;
+    source: string;
+    altName: string;
+    onClick?: () => void;
+}
+
+const TitleBtn = ({ type, source, altName, onClick }: IProps) => {
     return (
         <StyledTitleBtn 
             type={type} 

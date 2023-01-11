@@ -2,9 +2,10 @@ import React from 'react';
 import StyledTodoList from './StyledTodoList';
 import TodoItem from './TodoItem/TodoItem';
 import { useSelector } from 'react-redux';
+import { RootState } from 'store/store';
 
 const TodoList = () => {
-    const { items }= useSelector(state => state.todo);
+    const { items }= useSelector((state: RootState) => state.todo);
     return (
         <StyledTodoList>
             {
