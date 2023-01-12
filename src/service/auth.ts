@@ -19,7 +19,7 @@ class AuthService implements IAuthService {
     private END_POINT: string;
 
     constructor() {
-        this.END_POINT = API_BASE_URL;
+        this.END_POINT = `${API_BASE_URL}/users`;
     }
 
     async login(userData: IUserForm): Promise<void | string> {
