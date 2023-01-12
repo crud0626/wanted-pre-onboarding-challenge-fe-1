@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { RootState } from 'store/store';
+import { useAppSelector } from 'hooks/useAppSelector';
 import { getTodoItems } from 'store/reducer/todoSlice';
 import { requestLogin } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';
@@ -13,7 +12,7 @@ import { STORAGE_KEY } from 'constants/storage';
 
 const LoginBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
-    const { token } = useSelector((state: RootState) => state.user);
+    const { token } = useAppSelector(state => state.user);
 
     const [formData, setFormData] = useState<IUserForm>({
         email: '',

@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import TitleBtn from '../TitleBtn';
 import { StyledDetailForm } from './DetailForm.styles';
-import { RootState } from 'store/store';
 import { addTodoItem, updateTodoItem } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
-import { useAppDispatch } from 'hooks/useAppDispatch';
 import { ITodo } from 'types/todo.type';
 import completeIcon from 'assets/complete-icon.png';
 
 const DetailForm = () => {
     const dispatch = useAppDispatch();
-    const { token, selectedItem } = useSelector((state: RootState) => state.user);
+    const { token, selectedItem } = useAppSelector(state => state.user);
     const [formData, setFormData] = useState<ITodo>({
         title: '',
         content: ''
