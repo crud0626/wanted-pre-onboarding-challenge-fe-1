@@ -1,7 +1,7 @@
 import React from 'react';
 import StyledTodoItem from './TodoItem.styles';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import { ITodoItem } from 'types/todo.type';
 import { queryWithId } from 'constants/query';
@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const TodoItem = ({ item }: IProps) => {
-    const dispatch = useDispatch(), navigate = useNavigate();
+    const dispatch = useAppDispatch(), navigate = useNavigate();
     const handleClick = () => {
         dispatch(CHANGE_SELECTED_ITEM(item));
         dispatch(CHANGE_IS_EDIT(false));

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { RootState, useAppDispatch } from 'store/store';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { RootState } from 'store/store';
 import { getTodoItems } from 'store/reducer/todoSlice';
 import { requestLogin } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';

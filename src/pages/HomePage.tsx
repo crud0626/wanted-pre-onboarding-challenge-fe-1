@@ -4,13 +4,14 @@ import DetailBox from 'components/Section/DetailBox/DetailBox';
 import TodoBox from 'components/Section/TodoBox/TodoBox';
 import { getTodoItems } from 'store/reducer/todoSlice';
 import { CHANGE_SELECTED_ITEM, LOGIN } from 'store/reducer/userSlice';
-import { useAppDispatch } from 'store/store';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { STORAGE_KEY } from 'constants/storage';
 
 const HomePage = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
 
     useEffect(() => {
-        const storageToken: null | string = window.localStorage.getItem("mtd-uid");
+        const storageToken: null | string = window.localStorage.getItem(STORAGE_KEY);
 
         if(!storageToken) {
             navigate('/login');

@@ -3,9 +3,10 @@ import { StyledDetailContent } from './DetailContent.styles';
 import TitleBtn from '../TitleBtn';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from 'store/store';
 import { requestDeleteItem } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CLEAR_SELECTED_ITEM } from 'store/reducer/userSlice';
-import { RootState, useAppDispatch } from 'store/store';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import deleteIcon from 'assets/delete-icon.png';
 import editIcon from 'assets/edit-icon.png';
 

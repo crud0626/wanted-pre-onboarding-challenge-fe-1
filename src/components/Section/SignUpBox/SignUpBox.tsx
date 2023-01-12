@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { requestSignUp } from 'store/reducer/userSlice';
-import { useAppDispatch } from 'store/store';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { SignUpSubmitBtn, StyledSignUpBox } from './SignUpBox.styles';
 import { validationEmail, validationPassword } from 'constants/validation';

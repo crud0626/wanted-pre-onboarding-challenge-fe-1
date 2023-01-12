@@ -1,8 +1,8 @@
 import React from 'react';
-import StyledTodoList from './TodoList.styles';
-import TodoItem from './TodoItem/TodoItem';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store/store';
+import StyledTodoList from './TodoList.styles';
+import TodoItem from './TodoItem/TodoItem';
 
 const TodoList = () => {
     const { items }= useSelector((state: RootState) => state.todo);
