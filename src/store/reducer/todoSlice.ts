@@ -80,13 +80,13 @@ const todoSlice = createSlice({
                 if(!payload) return;
 
                 const targetIndex = state.items?.findIndex((item) => item.id === payload.id);
-                if (targetIndex && targetIndex !== -1) state.items?.splice(targetIndex, 1, payload);
+                if (targetIndex !== undefined && targetIndex !== -1) state.items?.splice(targetIndex, 1, payload);
             })
             .addCase(fetchDeleteTodo.fulfilled, (state, { payload }) => {
                 if(!payload) return;
 
                 const targetIndex = state.items?.findIndex((item) => item.id === payload);
-                if(targetIndex && targetIndex !== -1) state.items?.splice(targetIndex, 1);
+                if(targetIndex !== undefined && targetIndex !== -1) state.items?.splice(targetIndex, 1);
             })
     }
 });
