@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DetailBox from 'components/Section/DetailBox/DetailBox';
 import TodoBox from 'components/Section/TodoBox/TodoBox';
-import { getTodoItems } from 'store/reducer/todoSlice';
-import { CHANGE_SELECTED_ITEM, LOGIN } from 'store/reducer/userSlice';
+import { fetchGetTodos } from 'store/reducer/todoSlice';
+import { CHANGE_SELECTED_ITEM, CHANGE_USER } from 'store/reducer/userSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { STORAGE_KEY } from 'constants/storage';
 
@@ -18,8 +18,8 @@ const HomePage = () => {
             return;
         }
 
-        dispatch(LOGIN(storageToken));
-        dispatch(getTodoItems({ token: storageToken }))
+        dispatch(CHANGE_USER(storageToken));
+        dispatch(fetchGetTodos({ token: storageToken }))
         .then(({ payload }) => {
             // URL직접 접근 시 바로 아이템의 디테일이 보여질 수 있도록 처리
             const queryString = window.location.search.match(/(?<=\?item=).+/);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { requestSignUp } from 'store/reducer/userSlice';
+import { fetchSignUp } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { SignUpSubmitBtn, StyledSignUpBox } from './SignUpBox.styles';
 import { validationEmail, validationPassword } from 'constants/validation';
@@ -31,7 +31,7 @@ const SignUpBox = () => {
         event.preventDefault();
 
         if(isValidEmail && isValidPW) {
-            dispatch(requestSignUp(formData))
+            dispatch(fetchSignUp(formData))
             .then(({ payload }) => {
                 if(payload && typeof payload === 'string') {
                     window.localStorage.setItem(STORAGE_KEY, payload);

@@ -4,8 +4,8 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { StyledDetailContent } from './DetailContent.styles';
 import TitleBtn from '../TitleBtn';
-import { requestDeleteItem } from 'store/reducer/todoSlice';
-import { CHANGE_IS_EDIT, CLEAR_SELECTED_ITEM } from 'store/reducer/userSlice';
+import { fetchDeleteTodo } from 'store/reducer/todoSlice';
+import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import deleteIcon from 'assets/delete-icon.png';
 import editIcon from 'assets/edit-icon.png';
 
@@ -19,14 +19,14 @@ const DetailContent = () => {
 
     const onRemove = async () => {
         if(token && selectedItem?.id) {
-            await dispatch(requestDeleteItem({ 
+            await dispatch(fetchDeleteTodo({ 
                 token, 
                 id: selectedItem.id 
             }))
             // ID를 리턴함.
             .then(({ payload }) => {
                 if(payload && typeof payload === 'string') {
-                    dispatch(CLEAR_SELECTED_ITEM());
+                    dispatch(CHANGE_SELECTED_ITEM(null));
                     navigate('/');
                 }
             });

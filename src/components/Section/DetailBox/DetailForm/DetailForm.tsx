@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { fetchCreateTodo, fetchUpdateTodo } from 'store/reducer/todoSlice';
+import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import TitleBtn from '../TitleBtn';
 import { StyledDetailForm } from './DetailForm.styles';
-import { addTodoItem, updateTodoItem } from 'store/reducer/todoSlice';
-import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import { ITodo } from 'types/todo.type';
 import completeIcon from 'assets/complete-icon.png';
 
@@ -33,7 +33,7 @@ const DetailForm = () => {
 
         if(token) {
             if(selectedItem) {
-                dispatch(updateTodoItem({
+                dispatch(fetchUpdateTodo({
                     token, 
                     item: formData, 
                     id: selectedItem.id 
@@ -48,7 +48,7 @@ const DetailForm = () => {
                 return;
             }
 
-            dispatch(addTodoItem({ 
+            dispatch(fetchCreateTodo({ 
                 token, 
                 item: formData 
             }))

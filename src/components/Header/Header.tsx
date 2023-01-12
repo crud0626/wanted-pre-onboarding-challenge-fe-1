@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { LogoutBtn, StyledHeader } from './Header.styles';
-import { LOGOUT } from 'store/reducer/userSlice';
+import { CHANGE_USER } from 'store/reducer/userSlice';
 import { STORAGE_KEY } from 'constants/storage';
 
 const Header = () => {
@@ -12,7 +12,7 @@ const Header = () => {
 
     const onLogOut = () => {
         window.localStorage.removeItem(STORAGE_KEY);
-        dispatch(LOGOUT());
+        dispatch(CHANGE_USER(null));
         navigate('/login');
     }
 

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
-import { getTodoItems } from 'store/reducer/todoSlice';
-import { requestLogin } from 'store/reducer/userSlice';
+import { fetchGetTodos } from 'store/reducer/todoSlice';
+import { fetchLogin } from 'store/reducer/userSlice';
+import { StyledLoginBox } from './LoginBox.styles';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
-import { StyledLoginBox } from './LoginBox.styles';
 import { IUserForm } from 'types/auth.type';
 import { STORAGE_KEY } from 'constants/storage';
 
@@ -30,7 +30,7 @@ const LoginBox = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
-        dispatch(requestLogin(formData));
+        dispatch(fetchLogin(formData));
     }
 
     const moveSignUp = () => {
@@ -40,7 +40,7 @@ const LoginBox = () => {
     useEffect(() => {
         if(token) {
             window.localStorage.setItem(STORAGE_KEY, token);
-            dispatch(getTodoItems({ token }));
+            dispatch(fetchGetTodos({ token }));
             navigate('/');
         }
     });
