@@ -13,11 +13,11 @@ const DetailContent = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
     const { token, selectedItem } = useAppSelector(state => state.user);
 
-    const onEdit = () => {
+    const onEdit = (): void => {
         dispatch(CHANGE_IS_EDIT(null));
     }
 
-    const onRemove = async () => {
+    const onRemove = async (): Promise<void> => {
         if(token && selectedItem?.id) {
             await dispatch(fetchDeleteTodo({ 
                 token, 

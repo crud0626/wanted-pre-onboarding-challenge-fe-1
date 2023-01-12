@@ -19,11 +19,11 @@ const SignUpBox = () => {
     const [isValidEmail, setIsValidEmail] = useState(false);
     const [isValidPW, setIsValidPW] = useState(false);
 
-    const checkEmailFormat = () => {
+    const checkEmailFormat = (): void => {
         setIsValidEmail(formData.email.match(validationEmail) ? true : false);
     }
 
-    const checkPasswordFormat = () => {
+    const checkPasswordFormat = (): void => {
         setIsValidPW(formData.password.match(validationPassword) ? true : false);
     }
 
@@ -41,7 +41,7 @@ const SignUpBox = () => {
         }
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
         setFormData({
             ...formData,

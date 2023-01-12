@@ -1,24 +1,29 @@
-// ITodoForm 으로 변경예정
-export interface ITodo {
+export interface TodoState {
+    items: null | ITodoItem[];
+}
+
+export interface ITodoForm {
     title: string;
     content: string;
 }
 
-// update와 byId의 경우 ITodoITem | null
-export interface ITodoItem extends ITodo {
+export interface ITodoItem extends ITodoForm {
     createdAt: string;
     id: string;
     updatedAt: string;
 }
 
+/* 요청 성공 */
+// createTodo, updateTodo
 export interface IResponseTodoItem {
     data: ITodoItem;
 }
 
+// getTodo
 export interface IResponseTodoItems {
-    // null은 삭제, 또는 없을 때?
     data: null | ITodoItem[];
 }
 
-// getTodos는 배열로
-// create, update는 단일 아이템
+export interface IResponseDelete {
+    data: null;
+}

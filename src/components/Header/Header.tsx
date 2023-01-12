@@ -10,7 +10,7 @@ const Header = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
     const { token } = useAppSelector(state => state.user);
 
-    const onLogOut = () => {
+    const onLogOut = (): void => {
         window.localStorage.removeItem(STORAGE_KEY);
         dispatch(CHANGE_USER(null));
         navigate('/login');

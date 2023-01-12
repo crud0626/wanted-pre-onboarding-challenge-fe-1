@@ -5,13 +5,13 @@ import { fetchCreateTodo, fetchUpdateTodo } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import TitleBtn from '../TitleBtn';
 import { StyledDetailForm } from './DetailForm.styles';
-import { ITodo } from 'types/todo.type';
+import { ITodoForm } from 'types/todo.type';
 import completeIcon from 'assets/complete-icon.png';
 
 const DetailForm = () => {
     const dispatch = useAppDispatch();
     const { token, selectedItem } = useAppSelector(state => state.user);
-    const [formData, setFormData] = useState<ITodo>({
+    const [formData, setFormData] = useState<ITodoForm>({
         title: '',
         content: ''
     });

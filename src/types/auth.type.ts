@@ -8,6 +8,7 @@ export interface IAuthSuccess {
     token: string;
 }
 
+// 공통
 export interface IResponseFailed {
     details: string;
 }

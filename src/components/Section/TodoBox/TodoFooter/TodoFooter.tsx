@@ -7,7 +7,7 @@ import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
 const TodoFooter = () => {
     const dispatch = useAppDispatch();
     
-    const handleClick = () => {
+    const handleClick = (): void => {
         dispatch(CHANGE_IS_EDIT(true));
         dispatch(CHANGE_SELECTED_ITEM(null));
     }

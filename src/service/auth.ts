@@ -1,6 +1,11 @@
 import { API_BASE_URL, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from "constants/api";
 import { IAuthSuccess, IResponseFailed, IUserForm } from "types/auth.type";
 
+interface IAuthService {
+    login(loginData: IUserForm): Promise<void | string>;
+    signUp(loginData: IUserForm): Promise<void | string>;
+}
+
 /* 타입 가드 함수 */
 function isFailed(arg: any): arg is IResponseFailed {
     return arg.details !== undefined;
@@ -8,11 +13,6 @@ function isFailed(arg: any): arg is IResponseFailed {
 
 function isSuccess(arg: any): arg is IAuthSuccess {
     return arg.token !== undefined;
-}
-
-interface IAuthService {
-    login(loginData: IUserForm): Promise<void | string>;
-    signUp(loginData: IUserForm): Promise<void | string>;
 }
 
 class AuthService implements IAuthService {

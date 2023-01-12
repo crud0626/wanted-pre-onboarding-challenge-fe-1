@@ -19,7 +19,7 @@ const LoginBox = () => {
         password: ''
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -27,13 +27,13 @@ const LoginBox = () => {
         });
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         
         dispatch(fetchLogin(formData));
     }
 
-    const moveSignUp = () => {
+    const moveSignUp = (): void => {
         navigate('/signup');
     }
 

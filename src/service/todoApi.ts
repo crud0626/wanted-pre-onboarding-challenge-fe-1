@@ -1,15 +1,9 @@
 import { AUTHORIZATION_KEY, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from './../constants/api';
 import { API_BASE_URL } from 'constants/api';
 import { IResponseFailed } from 'types/auth.type';
-import { IResponseTodoItem, IResponseTodoItems, ITodo, ITodoItem } from "types/todo.type";
+import { IResponseDelete, IResponseTodoItem, IResponseTodoItems, ITodoForm, ITodoItem } from "types/todo.type";
 
-/* API 결과 값 리턴 될 때 details를 포함한 모든 에러 상황 컨트롤하자 */
-
-interface DeleteResponse {
-    data: null;
-}
-
-// 타입 가드를 위한 함수 정의
+/* 타입 가드를 위한 함수 */
 function isFailed(arg: any): arg is IResponseFailed {
     return arg.details !== undefined;
 }
@@ -22,14 +16,14 @@ function isSuccessWithItem(arg: any): arg is IResponseTodoItem {
     return arg.data !== undefined;
 }
 
-function isSuccessDelete(arg: any): arg is DeleteResponse {
+function isSuccessDelete(arg: any): arg is IResponseDelete {
     return arg.data !== undefined;
 }
 
 interface ITodoAPI {
     getTodos(token: string): Promise<void | ITodoItem[]>;
-    createTodo(token: string, item: ITodo): Promise<void | ITodoItem>;
-    updateTodo(token: string, item: ITodo, id: string): Promise<void | ITodoItem>;
+    createTodo(token: string, item: ITodoForm): Promise<void | ITodoItem>;
+    updateTodo(token: string, item: ITodoForm, id: string): Promise<void | ITodoItem>;
     deleteTodo(token: string, itemId: string): Promise<void | string>;
 }
 
@@ -59,7 +53,7 @@ class TodoAPI implements ITodoAPI {
         }
     }
 
-    createTodo = async (token: string, item: ITodo): Promise<void | ITodoItem> => {
+    createTodo = async (token: string, item: ITodoForm): Promise<void | ITodoItem> => {
         try {
             const response = await fetch(this.END_POINT, {
                 method: "POST",
@@ -83,7 +77,7 @@ class TodoAPI implements ITodoAPI {
         }
     }
 
-    updateTodo = async (token: string, item: ITodo, id: string): Promise<void | ITodoItem> => {
+    updateTodo = async (token: string, item: ITodoForm, id: string): Promise<void | ITodoItem> => {
         const pushData = {
             title: item.title,
             content: item.content
@@ -114,7 +108,7 @@ class TodoAPI implements ITodoAPI {
 
     deleteTodo = async (token: string, itemId: string): Promise<void | string> => {
         try {
-            const response: DeleteResponse | IResponseFailed  = await fetch(`${this.END_POINT}/${itemId}`, {
+            const response: IResponseDelete | IResponseFailed  = await fetch(`${this.END_POINT}/${itemId}`, {
                 method: "DELETE",
                 headers: { [AUTHORIZATION_KEY]: token }
             })
