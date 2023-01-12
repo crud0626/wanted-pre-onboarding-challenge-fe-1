@@ -6,7 +6,7 @@ import { getTodoItems } from 'store/reducer/todoSlice';
 import { CHANGE_SELECTED_ITEM, LOGIN } from 'store/reducer/userSlice';
 import { useAppDispatch } from 'store/store';
 
-const Home = () => {
+const HomePage = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
 
     useEffect(() => {
@@ -40,4 +40,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomePage;

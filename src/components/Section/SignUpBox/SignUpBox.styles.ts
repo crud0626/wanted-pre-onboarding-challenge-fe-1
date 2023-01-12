@@ -30,7 +30,7 @@ const SignUpSubmitBtn = styled(StyledSubmitBtn)<IProps>`
     }
 `;
 
-const StyledSignupBox = styled.div`
+const StyledSignUpBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,4 +50,4 @@ const StyledSignupBox = styled.div`
     }
 `;
 
-export { StyledSignupBox, SignUpSubmitBtn };
+export { StyledSignUpBox, SignUpSubmitBtn };

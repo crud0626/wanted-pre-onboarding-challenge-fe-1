@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyledDetailContent } from './StyledDetailContent';
+import { StyledDetailContent } from './DetailContent.styles';
 import TitleBtn from '../TitleBtn';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { requestDeleteItem } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CLEAR_SELECTED_ITEM } from 'store/reducer/userSlice';
 import { RootState, useAppDispatch } from 'store/store';
-import deleteIcon from 'assets/delete_icon.png';
-import editIcon from 'assets/edit_icon.png';
+import deleteIcon from 'assets/delete-icon.png';
+import editIcon from 'assets/edit-icon.png';
 
 const DetailContent = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();

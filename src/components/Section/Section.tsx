@@ -1,9 +1,9 @@
 import React from 'react';
-import StyledSection from './StyledSection';
+import StyledSection from './Section.styles';
 import { Routes, Route } from 'react-router-dom';
-import Home from 'pages/Home';
-import SignUp from 'pages/SignUp';
-import Login from 'pages/Login';
+import HomePage from 'pages/HomePage';
+import SignUpPage from 'pages/SignUpPage';
+import LoginPage from 'pages/LoginPage';
 
 const Section = () => {
     return (
@@ -11,15 +11,15 @@ const Section = () => {
             <Routes>
                 <Route 
                     path='/'
-                    element={<Home />}
+                    element={<HomePage />}
                 />
                 <Route 
                     path='/login'
-                    element={<Login />}
+                    element={<LoginPage />}
                 />
                 <Route 
                     path='/signup'
-                    element={<SignUp />}
+                    element={<SignUpPage />}
                 />
             </Routes>
         </StyledSection>

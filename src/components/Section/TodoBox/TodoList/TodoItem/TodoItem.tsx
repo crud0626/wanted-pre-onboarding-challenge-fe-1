@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledTodoItem from './StyledTodoItem';
+import StyledTodoItem from './TodoItem.styles';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';

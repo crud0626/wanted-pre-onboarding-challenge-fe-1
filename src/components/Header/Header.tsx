@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogoutBtn, StyledHeader } from './StyledHeader';
+import { LogoutBtn, StyledHeader } from './Header.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT } from 'store/reducer/userSlice';
 import { useNavigate } from 'react-router-dom';

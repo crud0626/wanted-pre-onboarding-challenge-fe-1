@@ -1,4 +1,4 @@
-import { IAuthSuccess, IResponseFailed, IUserForm } from "types/auth/auth.type";
+import { IAuthSuccess, IResponseFailed, IUserForm } from "types/auth.type";
 
 interface IAuthService {
     login(loginData: IUserForm): Promise<void | string>;

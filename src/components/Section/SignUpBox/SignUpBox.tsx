@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestSignUp } from 'store/reducer/userSlice';
+import { useAppDispatch } from 'store/store';
 import { StyledInputBox } from 'styles/StyledInputBox';
-import { SignUpSubmitBtn, StyledSignupBox } from './StyledSignupBox';
+import { SignUpSubmitBtn, StyledSignUpBox } from './SignUpBox.styles';
 import { emailRegex, passwordRegex } from 'utils/regex';
 import ValidBox from './ValidBox/ValidBox';
-import { IUserForm } from 'types/auth/auth.type';
-import { useAppDispatch } from 'store/store';
+import { IUserForm } from 'types/auth.type';
 
-const SignupBox = () => {
+const SignUpBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
 
     const [formData, setFormData] = useState<IUserForm>({
@@ -52,7 +52,7 @@ const SignupBox = () => {
     }
 
     return (
-        <StyledSignupBox>
+        <StyledSignUpBox>
             <h2 className='title'>Sign Up</h2>
             <form className="form" onSubmit={handleSubmit}>
                 <div>
@@ -83,8 +83,8 @@ const SignupBox = () => {
                     Sign Up
                 </SignUpSubmitBtn>
             </form>
-        </StyledSignupBox>
+        </StyledSignUpBox>
     );
 };
 
-export default SignupBox;
+export default SignUpBox;

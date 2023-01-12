@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TitleBtn from '../TitleBtn';
-import completeIcon from 'assets/complete_icon.png';
-import { StyledDetailForm } from './StyledDetailForm';
+import completeIcon from 'assets/complete-icon.png';
+import { StyledDetailForm } from './DetailForm.styles';
 import { useSelector } from 'react-redux';
 import { addTodoItem, updateTodoItem } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';

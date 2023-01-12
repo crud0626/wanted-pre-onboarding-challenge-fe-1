@@ -1,4 +1,4 @@
-import { IUserForm } from 'types/auth/auth.type';
+import { IUserForm } from 'types/auth.type';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from "service/auth";
 import { ITodoItem } from 'types/todo.type';

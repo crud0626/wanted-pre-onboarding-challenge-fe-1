@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { requestLogin } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
-import { StyledLoginBox } from '../../../styles/StyledLoginBox';
+import { StyledLoginBox } from './LoginBox.styles';
 import { useNavigate } from 'react-router-dom';
 import { getTodoItems } from 'store/reducer/todoSlice';
 import { RootState, useAppDispatch } from 'store/store';
-import { IUserForm } from 'types/auth/auth.type';
+import { IUserForm } from 'types/auth.type';
 
 const LoginBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();

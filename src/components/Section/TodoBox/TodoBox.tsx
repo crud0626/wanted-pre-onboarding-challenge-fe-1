@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledTodoBox from './StyledTodoBox';
+import StyledTodoBox from './TodoBox.styles';
 import TodoList from './TodoList/TodoList';
 import TodoFooter from './TodoFooter/TodoFooter';
 

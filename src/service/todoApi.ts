@@ -1,4 +1,4 @@
-import { IResponseFailed } from 'types/auth/auth.type';
+import { IResponseFailed } from 'types/auth.type';
 import { IResponseTodoItem, IResponseTodoItems, ITodo, ITodoItem } from "types/todo.type";
 
 const END_POINT = "http://localhost:8080/todos";

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonTypeAttribute, StyledTitleBtn } from './StyledTitleBtn';
+import { ButtonTypeAttribute, StyledTitleBtn } from './TitleBtn.styles';
 
 interface IProps {
     type?: ButtonTypeAttribute;
