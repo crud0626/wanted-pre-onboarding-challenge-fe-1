@@ -1,11 +1,9 @@
+import { AUTHORIZATION_KEY, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from './../constants/api';
+import { API_BASE_URL } from 'constants/api';
 import { IResponseFailed } from 'types/auth.type';
 import { IResponseTodoItem, IResponseTodoItems, ITodo, ITodoItem } from "types/todo.type";
 
-const END_POINT = "http://localhost:8080/todos";
-
-/**
- * API 결과 값 리턴 될 때 details를 포함한 모든 에러 상황 컨트롤하자
- */
+/* API 결과 값 리턴 될 때 details를 포함한 모든 에러 상황 컨트롤하자 */
 
 interface DeleteResponse {
     data: null;
@@ -28,14 +26,17 @@ function isSuccessDelete(arg: any): arg is DeleteResponse {
     return arg.data !== undefined;
 }
 
-class TodoApi {
+class TodoAPI {
+    private END_POINT = `${API_BASE_URL}/todos`;
+
     getTodos = async (token: string): Promise<void | ITodoItem[]> => {
         try {
-            const response = await fetch(`${END_POINT}`, {
+            const response = await fetch(`${this.END_POINT}`, {
                 headers: {
-                    'Authorization': token
+                    [AUTHORIZATION_KEY]: token
                 }
-            }).then(res => res.json());
+            })
+            .then(res => res.json());
 
             if(isFailed(response)) throw new Error(response.details);
 
@@ -53,11 +54,11 @@ class TodoApi {
 
     createTodo = async (token: string, item: ITodo): Promise<void | ITodoItem> => {
         try {
-            const response = await fetch(END_POINT, {
+            const response = await fetch(this.END_POINT, {
                 method: "POST",
                 headers : {
-                    'Authorization': token,
-                    'Content-Type': 'application/json'
+                    [AUTHORIZATION_KEY]: token,
+                    [CONTENT_TYPE_KEY]: JSON_CONTENT_TYPE
                 },
                 body: JSON.stringify(item)
             })
@@ -81,14 +82,15 @@ class TodoApi {
         }
 
         try {
-            const response = await fetch(`${END_POINT}/${id}`, {
+            const response = await fetch(`${this.END_POINT}/${id}`, {
                 method: "PUT",
                 headers: {
-                    'Authorization': token,
-                    'Content-Type': 'application/json'
+                    [AUTHORIZATION_KEY]: token,
+                    [CONTENT_TYPE_KEY]: JSON_CONTENT_TYPE
                 },
                 body: JSON.stringify(pushData)
-            }).then(res => res.json());
+            })
+            .then(res => res.json());
 
             if(isFailed(response)) throw new Error(response.details);
 
@@ -102,17 +104,16 @@ class TodoApi {
     // 성공시 details: null | void
     deleteTodo = async (token: string, itemId: string): Promise<void | boolean> => {
         try {
-            const response: DeleteResponse | IResponseFailed  = await fetch(`${END_POINT}/${itemId}`, {
+            const response: DeleteResponse | IResponseFailed  = await fetch(`${this.END_POINT}/${itemId}`, {
                 method: "DELETE",
                 headers: {
-                    'Authorization': token
+                    [AUTHORIZATION_KEY]: token
                 }
-            }).then(res => res.json());
+            })
+            .then(res => res.json());
 
-            // 실패요 실패
             if(isFailed(response) && response.details) throw new Error(response.details);
 
-            // true로 반환
             if(isSuccessDelete(response)) return true;
 
             throw new Error("Undefined");
@@ -125,6 +126,6 @@ class TodoApi {
     }
 }
 
-const todoApi = new TodoApi();
+const todoApi = new TodoAPI();
 
 export { todoApi };

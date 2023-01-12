@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { RootState, useAppDispatch } from 'store/store';
+import { getTodoItems } from 'store/reducer/todoSlice';
 import { requestLogin } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
 import { StyledLoginBox } from './LoginBox.styles';
-import { useNavigate } from 'react-router-dom';
-import { getTodoItems } from 'store/reducer/todoSlice';
-import { RootState, useAppDispatch } from 'store/store';
 import { IUserForm } from 'types/auth.type';
+import { STORAGE_KEY } from 'constants/storage';
 
 const LoginBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
@@ -38,7 +39,7 @@ const LoginBox = () => {
 
     useEffect(() => {
         if(token) {
-            window.localStorage.setItem("mtd-uid", token);
+            window.localStorage.setItem(STORAGE_KEY, token);
             dispatch(getTodoItems({ token }));
             navigate('/');
         }

@@ -1,3 +1,4 @@
+import { API_BASE_URL, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from "constants/api";
 import { IAuthSuccess, IResponseFailed, IUserForm } from "types/auth.type";
 
 interface IAuthService {
@@ -14,16 +15,15 @@ function isSuccess(arg: any): arg is IAuthSuccess {
     return arg.token !== undefined;
 }
 
-
-const END_POINT = "http://localhost:8080/users";
-
 class AuthService implements IAuthService {
+    private END_POINT = `${API_BASE_URL}`;
+
     async login(loginData: IUserForm): Promise<void | string> {
         try {
-            const response = await fetch(`${END_POINT}/login`, {
+            const response = await fetch(`${this.END_POINT}/login`, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    [CONTENT_TYPE_KEY]: JSON_CONTENT_TYPE,
                 },
                 body: JSON.stringify(loginData)
             }).then(res => res.json());
@@ -42,10 +42,10 @@ class AuthService implements IAuthService {
 
     async signUp(loginData: IUserForm): Promise<void | string> {
         try {
-            const response = await fetch(`${END_POINT}/create`, {
+            const response = await fetch(`${this.END_POINT}/create`, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    [CONTENT_TYPE_KEY]: JSON_CONTENT_TYPE,
                 },
                 body: JSON.stringify(loginData)
             }).then(res => res.json());

@@ -4,9 +4,10 @@ import { requestSignUp } from 'store/reducer/userSlice';
 import { useAppDispatch } from 'store/store';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { SignUpSubmitBtn, StyledSignUpBox } from './SignUpBox.styles';
-import { emailRegex, passwordRegex } from 'utils/regex';
+import { validationEmail, validationPassword } from 'constants/validation';
 import ValidBox from './ValidBox/ValidBox';
 import { IUserForm } from 'types/auth.type';
+import { STORAGE_KEY } from 'constants/storage';
 
 const SignUpBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
@@ -19,11 +20,11 @@ const SignUpBox = () => {
     const [isValidPW, setIsValidPW] = useState(false);
 
     const checkEmailFormat = () => {
-        setIsValidEmail(formData.email.match(emailRegex) ? true : false);
+        setIsValidEmail(formData.email.match(validationEmail) ? true : false);
     }
 
     const checkPasswordFormat = () => {
-        setIsValidPW(formData.password.match(passwordRegex) ? true : false);
+        setIsValidPW(formData.password.match(validationPassword) ? true : false);
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -33,7 +34,7 @@ const SignUpBox = () => {
             dispatch(requestSignUp(formData))
             .then(({ payload }) => {
                 if(payload && typeof payload === 'string') {
-                    window.localStorage.setItem("mtd-uid", payload);
+                    window.localStorage.setItem(STORAGE_KEY, payload);
                     navigate('/');
                 }
             })
