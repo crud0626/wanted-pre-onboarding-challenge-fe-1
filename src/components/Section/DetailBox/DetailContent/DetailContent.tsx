@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { StyledDetailContent } from './DetailContent.styles';
-import TitleBtn from '../TitleBtn';
+import TitleBtn from '../DetailBtn';
 import { fetchDeleteTodo } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import deleteIcon from 'assets/delete-icon.png';

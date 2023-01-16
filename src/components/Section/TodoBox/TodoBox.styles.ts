@@ -1,5 +1,13 @@
 import styled from "styled-components";
 import WrapperBox from "styles/mixins/WrapperBox";
+import * as sizes from 'styles/common/sizes';
+import * as colors from 'styles/common/colors';
+
+const TodoFooter = styled.div`
+    flex: 0 0;
+    border-top: 1px solid ${colors.mainBorderColor};
+    padding: ${sizes.space_4x} 0;
+`;
 
 const StyledTodoBox = styled.div`
     ${WrapperBox}
@@ -8,4 +16,4 @@ const StyledTodoBox = styled.div`
     justify-content: space-between;
 `;
 
-export default StyledTodoBox;
+export { StyledTodoBox, TodoFooter };

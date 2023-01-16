@@ -1,12 +1,12 @@
 import React from 'react';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useForm } from 'hooks/useForm';
 import { fetchCreateTodo, fetchUpdateTodo } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
-import TitleBtn from '../TitleBtn';
+import DetailBtn from '../DetailBtn';
 import { StyledDetailForm } from './DetailForm.styles';
 import completeIcon from 'assets/complete-icon.png';
-import { useForm } from 'hooks/useForm';
 
 const DetailForm = () => {
     const dispatch = useAppDispatch();
@@ -60,8 +60,8 @@ const DetailForm = () => {
                     onChange={handleChange}
                 />
                 <div className='btn_wrapper'>
-                    <TitleBtn
-                        type={"submit"}
+                    <DetailBtn
+                        type="submit"
                         source={completeIcon}
                         altName="edit"
                     />

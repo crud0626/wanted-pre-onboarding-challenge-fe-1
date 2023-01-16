@@ -1,14 +1,11 @@
+import React from "react";
 import styled from "styled-components";
 import * as sizes from 'styles/common/sizes';
 import * as colors from 'styles/common/colors';
 
-export type ButtonTypeAttribute = "button" | "submit" | "reset";
+export interface DetailBtnProps extends Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {}
 
-interface IProps {
-    type?: ButtonTypeAttribute;
-}
-
-const StyledTitleBtn = styled.button.attrs<IProps>(props => ({
+const StyledDetailBtn = styled.button.attrs<DetailBtnProps>(props => ({
     type: props.type || 'button',
 }))`
     width: ${sizes.detailIconSize};
@@ -25,4 +22,4 @@ const StyledTitleBtn = styled.button.attrs<IProps>(props => ({
     }
 `;
 
-export { StyledTitleBtn };
+export { StyledDetailBtn };

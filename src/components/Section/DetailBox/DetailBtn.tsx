@@ -1,16 +1,15 @@
 import React from 'react';
-import { ButtonTypeAttribute, StyledTitleBtn } from './TitleBtn.styles';
+import { DetailBtnProps, StyledDetailBtn } from './DetailBtn.styles';
 
-interface IProps {
-    type?: ButtonTypeAttribute;
+interface IProps extends DetailBtnProps {
     source: string;
     altName: string;
     onClick?: () => void;
 }
 
-const TitleBtn = ({ type, source, altName, onClick }: IProps) => {
+const DetailBtn = ({ type, source, altName, onClick }: IProps) => {
     return (
-        <StyledTitleBtn 
+        <StyledDetailBtn 
             type={type} 
             onClick={onClick}
         >
@@ -18,8 +17,8 @@ const TitleBtn = ({ type, source, altName, onClick }: IProps) => {
                 src={source} 
                 alt={altName}
             />
-        </StyledTitleBtn>
+        </StyledDetailBtn>
     );
 };
 
-export default TitleBtn;
+export default DetailBtn;
