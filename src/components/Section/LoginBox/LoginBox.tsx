@@ -21,15 +21,15 @@ const LoginBox = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
+
         setFormData({
             ...formData,
             [name]: value
         });
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-        event.preventDefault();
-        
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
         dispatch(fetchLogin(formData));
     }
 
@@ -39,6 +39,7 @@ const LoginBox = () => {
 
     useEffect(() => {
         if(token) {
+            // ????? 얘가 왜 여기있지? 로그인이랑 연동하는게 더 낫지 않겠냐??
             window.localStorage.setItem(STORAGE_KEY, token);
             dispatch(fetchGetTodos({ token }));
             navigate('/');

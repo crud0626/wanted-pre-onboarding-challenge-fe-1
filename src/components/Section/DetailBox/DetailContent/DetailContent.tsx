@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -13,17 +13,16 @@ const DetailContent = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
     const { token, selectedItem } = useAppSelector(state => state.user);
 
-    const onEdit = (): void => {
+    const onEdit = useCallback((): void => {
         dispatch(CHANGE_IS_EDIT(null));
-    }
+    }, [dispatch]);
 
-    const onRemove = async (): Promise<void> => {
+    const onRemove = (): void => {
         if(token && selectedItem?.id) {
-            await dispatch(fetchDeleteTodo({ 
+            dispatch(fetchDeleteTodo({ 
                 token, 
                 id: selectedItem.id 
             }))
-            // ID를 리턴함.
             .then(({ payload }) => {
                 if(payload && typeof payload === 'string') {
                     dispatch(CHANGE_SELECTED_ITEM(null));
@@ -31,7 +30,6 @@ const DetailContent = () => {
                 }
             });
         }
-
     }
 
     return (
