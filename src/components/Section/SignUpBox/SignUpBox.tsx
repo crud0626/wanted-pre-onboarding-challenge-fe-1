@@ -1,56 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useForm } from 'hooks/useForm';
 import { fetchSignUp } from 'store/reducer/userSlice';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { SignUpSubmitBtn, StyledSignUpBox } from './SignUpBox.styles';
 import { validationEmail, validationPassword } from 'constants/validation';
 import ValidBox from './ValidBox/ValidBox';
-import { IUserForm } from 'types/auth.type';
 import { STORAGE_KEY } from 'constants/storage';
 
 const SignUpBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
 
-    const [formData, setFormData] = useState<IUserForm>({
-        email: '',
-        password: ''
-    });
-    const [isValidEmail, setIsValidEmail] = useState(false);
-    const [isValidPW, setIsValidPW] = useState(false);
-
-    const checkEmailFormat = (): void => {
-        setIsValidEmail(formData.email.match(validationEmail) ? true : false);
-    }
-
-    const checkPasswordFormat = (): void => {
-        setIsValidPW(formData.password.match(validationPassword) ? true : false);
-    }
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-        event.preventDefault();
-
-        if(isValidEmail && isValidPW) {
+    const onSubmit = () => {
+        if(isValidEmail && isValidPassword) {
             dispatch(fetchSignUp(formData))
             .then(({ payload }) => {
                 if(payload && typeof payload === 'string') {
                     window.localStorage.setItem(STORAGE_KEY, payload);
                     navigate('/');
                 }
-            })
+            });
         }
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+    const { formData, handleChange, handleSubmit } = useForm({
+        initialState: {
+            email: '',
+            password: ''
+        },
+        onSubmit
+    });
 
-        if(name === "email") checkEmailFormat();
-        if(name === "password") checkPasswordFormat();
-    }
+    const isValidEmail = validationEmail.test(formData.email);
+    const isValidPassword = validationPassword.test(formData.password);
 
     return (
         <StyledSignUpBox>
@@ -76,11 +59,11 @@ const SignUpBox = () => {
                         onChange={handleChange}
                     />
                     <ValidBox 
-                        isValid={isValidPW}
+                        isValid={isValidPassword}
                         displayText={"8자리 이상 입력해주세요."}
                     />
                 </div>
-                <SignUpSubmitBtn isValid={isValidEmail && isValidPW}>
+                <SignUpSubmitBtn isValid={isValidEmail && isValidPassword}>
                     Sign Up
                 </SignUpSubmitBtn>
             </form>

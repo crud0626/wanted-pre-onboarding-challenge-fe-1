@@ -1,36 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { fetchCreateTodo, fetchUpdateTodo } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import TitleBtn from '../TitleBtn';
 import { StyledDetailForm } from './DetailForm.styles';
-import { ITodoForm } from 'types/todo.type';
 import completeIcon from 'assets/complete-icon.png';
+import { useForm } from 'hooks/useForm';
 
 const DetailForm = () => {
     const dispatch = useAppDispatch();
     const { token, selectedItem } = useAppSelector(state => state.user);
-    const [formData, setFormData] = useState<ITodoForm>({
-        title: '',
-        content: ''
-    });
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ): void => {
-        const { name, value } = e.target;
-
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    }
-
-    // add와 submit
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-        e.preventDefault();
-
+    // add와 submit | 분리예정
+    const onSubmit = (): void => {
         if(token) {
             if(selectedItem) {
                 dispatch(fetchUpdateTodo({
@@ -59,6 +42,14 @@ const DetailForm = () => {
             });
         }
     }
+
+    const { formData, handleChange, handleSubmit } = useForm({
+        initialState: {
+            title: '',
+            content: ''
+        },
+        onSubmit
+    });
 
     return (
         <StyledDetailForm onSubmit={handleSubmit}>
