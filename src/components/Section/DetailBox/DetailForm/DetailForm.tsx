@@ -2,7 +2,9 @@ import React from 'react';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useForm } from 'hooks/useForm';
-import { fetchCreateTodo, fetchUpdateTodo } from 'store/reducer/todoSlice';
+import { useUpdateTodo } from 'hooks/queries/todo/useUpdateTodo';
+import { useCreateTodo } from 'hooks/queries/todo/useCreateTodo';
+import { ADD, UPDATE } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import DetailBtn from '../DetailBtn';
 import { StyledDetailForm } from './DetailForm.styles';
@@ -11,33 +13,37 @@ import completeIcon from 'assets/complete-icon.png';
 const DetailForm = () => {
     const dispatch = useAppDispatch();
     const { token, selectedItem } = useAppSelector(state => state.user);
+    const { mutateAsync: fetchCreateTodo } = useCreateTodo();
+    const { mutateAsync: fetchUpdateTodo } = useUpdateTodo();
 
-    // add와 submit | 분리예정
-    const onSubmit = (): void => {
+    // 리팩토링예정
+    const onSubmit = async (): Promise<void> => {
         if(token) {
             if(selectedItem) {
-                dispatch(fetchUpdateTodo({
+                const updatedItem = await fetchUpdateTodo({ 
                     token, 
                     item: formData, 
-                    id: selectedItem.id 
-                }))
-                .then(({ payload }) => {
-                    if(payload) {
-                        dispatch(CHANGE_IS_EDIT(null));
-                        dispatch(CHANGE_SELECTED_ITEM(payload));
-                    }
+                    id: selectedItem.id
                 });
+
+                if(updatedItem) {
+                    dispatch(CHANGE_IS_EDIT(null));
+                    dispatch(CHANGE_SELECTED_ITEM(updatedItem));
+                    dispatch(UPDATE(updatedItem));
+                }
 
                 return;
             }
 
-            dispatch(fetchCreateTodo({ 
-                token, 
-                item: formData 
-            }))
-            .then(({ payload }) => {
-                if(payload) {
+            fetchCreateTodo({
+                token,
+                item: formData
+            })
+            .then(item => {
+                if(item) {
                     dispatch(CHANGE_IS_EDIT(null));
+                    dispatch(CHANGE_SELECTED_ITEM(item));
+                    dispatch(ADD(item));
                 }
             });
         }

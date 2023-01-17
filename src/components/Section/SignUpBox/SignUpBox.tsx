@@ -1,26 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useForm } from 'hooks/useForm';
-import { fetchSignUp } from 'store/reducer/userSlice';
+import { useSignUp } from 'hooks/queries/auth/useSignUp';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { SignUpSubmitBtn, StyledSignUpBox } from './SignUpBox.styles';
 import { validationEmail, validationPassword } from 'constants/validation';
 import ValidBox from './ValidBox/ValidBox';
-import { STORAGE_KEY } from 'constants/storage';
 
 const SignUpBox = () => {
-    const dispatch = useAppDispatch(), navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if(isValidEmail && isValidPassword) {
-            dispatch(fetchSignUp(formData))
-            .then(({ payload }) => {
-                if(payload && typeof payload === 'string') {
-                    window.localStorage.setItem(STORAGE_KEY, payload);
-                    navigate('/');
-                }
-            });
+            const res = await mutateAsync();
+            if (res) navigate('/');
         }
     }
 
@@ -31,6 +24,8 @@ const SignUpBox = () => {
         },
         onSubmit
     });
+
+    const { mutateAsync } = useSignUp(formData);
 
     const isValidEmail = validationEmail.test(formData.email);
     const isValidPassword = validationPassword.test(formData.password);

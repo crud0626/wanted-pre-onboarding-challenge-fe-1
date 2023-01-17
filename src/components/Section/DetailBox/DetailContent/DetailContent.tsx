@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DELETE } from 'store/reducer/todoSlice';
+import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useDeleteTodo } from 'hooks/queries/todo/useDeleteTodo';
 import { StyledDetailContent } from './DetailContent.styles';
 import TitleBtn from '../DetailBtn';
-import { fetchDeleteTodo } from 'store/reducer/todoSlice';
-import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import deleteIcon from 'assets/delete-icon.png';
 import editIcon from 'assets/edit-icon.png';
 
@@ -17,18 +18,17 @@ const DetailContent = () => {
         dispatch(CHANGE_IS_EDIT(null));
     }, [dispatch]);
 
-    const onRemove = (): void => {
-        if(token && selectedItem?.id) {
-            dispatch(fetchDeleteTodo({ 
-                token, 
-                id: selectedItem.id 
-            }))
-            .then(({ payload }) => {
-                if(payload && typeof payload === 'string') {
-                    dispatch(CHANGE_SELECTED_ITEM(null));
-                    navigate('/');
-                }
-            });
+    const { mutateAsync: fetchRemoveTodo } = useDeleteTodo();
+
+    const onRemove = async (): Promise<void> => {
+        if(token && selectedItem) {
+            const deleteItemId = await fetchRemoveTodo({ token, id: selectedItem.id});
+
+            if(deleteItemId) {
+                dispatch(CHANGE_SELECTED_ITEM(null));
+                dispatch(DELETE(deleteItemId));
+                navigate('/');
+            }
         }
     }
 

@@ -1,34 +1,34 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useAppSelector } from 'hooks/useAppSelector';
 import { useForm } from 'hooks/useForm';
-import { fetchGetTodos } from 'store/reducer/todoSlice';
-import { fetchLogin } from 'store/reducer/userSlice';
+import { useLogin } from 'hooks/queries/auth/useLogin';
+import { CHANGE_USER } from 'store/reducer/userSlice';
 import { StyledLoginBox } from './LoginBox.styles';
 import { StyledInputBox } from 'styles/StyledInputBox';
 import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
-import { STORAGE_KEY } from 'constants/storage';
 
 const LoginBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
-    const { token } = useAppSelector(state => state.user);
+
+    const onSubmit = async (): Promise<void> => {
+        const { data: resToken } = await loginRefetch();
+
+        if(resToken) {
+            dispatch(CHANGE_USER(resToken))
+            navigate('/');
+        };
+    }
+
     const { formData, handleChange, handleSubmit } = useForm({
         initialState: {
             email: '',
             password: ''
         },
-        onSubmit: () => dispatch(fetchLogin(formData))
+        onSubmit
     });
 
-    // ????? 얘가 왜 여기있지? 로그인이랑 연동하는게 더 낫지 않을까?
-    useEffect(() => {
-        if(token) {
-            window.localStorage.setItem(STORAGE_KEY, token);
-            dispatch(fetchGetTodos({ token }));
-            navigate('/');
-        }
-    });
+    const { refetch: loginRefetch } = useLogin(formData);
 
     return (
         <StyledLoginBox>

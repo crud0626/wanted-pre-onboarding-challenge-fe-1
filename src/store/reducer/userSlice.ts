@@ -1,7 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IUserForm } from 'types/auth.type';
+import { createSlice } from '@reduxjs/toolkit';
 import { ITodoItem } from 'types/todo.type';
-import { authService } from "service/auth";
 
 export interface UserState {
     token: null | string;
@@ -14,20 +12,6 @@ const initialState: UserState = {
     isEdit: false,
     selectedItem: null
 };
-
-const fetchLogin = createAsyncThunk(
-    "user/fetchLogin",
-    (userData: IUserForm): Promise<void | string> => {
-        return authService.login(userData);
-    }
-);
-
-const fetchSignUp = createAsyncThunk(
-    "user/fetchSignUp",
-    (userData: IUserForm): Promise<void | string> => {
-        return authService.signUp(userData);
-    }
-);
 
 const userSlice = createSlice({
     name: 'user',
@@ -42,15 +26,6 @@ const userSlice = createSlice({
         CHANGE_SELECTED_ITEM: (state, { payload }) => {
             state.selectedItem = payload ? payload : null;
         }
-    },
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchLogin.fulfilled, (state, action) => {
-                if (action.payload) state.token = action.payload;
-            })
-            .addCase(fetchSignUp.fulfilled, (state, action) => {
-                if (action.payload) state.token = action.payload;
-            })
     }
 });
 
@@ -59,7 +34,5 @@ export const {
     CHANGE_IS_EDIT,
     CHANGE_SELECTED_ITEM,
 } = userSlice.actions;
-
-export { fetchLogin, fetchSignUp };
 
 export default userSlice;
