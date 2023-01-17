@@ -41,9 +41,9 @@ const DetailForm = () => {
             })
             .then(item => {
                 if(item) {
-                    dispatch(CHANGE_IS_EDIT(null));
-                    dispatch(CHANGE_SELECTED_ITEM(item));
                     dispatch(ADD(item));
+                    dispatch(CHANGE_SELECTED_ITEM(item));
+                    dispatch(CHANGE_IS_EDIT(null));
                 }
             });
         }

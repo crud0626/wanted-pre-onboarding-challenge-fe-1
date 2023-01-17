@@ -10,7 +10,7 @@ import TodoBox from 'components/Section/TodoBox/TodoBox';
 const HomePage = () => {
     const dispatch = useAppDispatch();
     const { token } = useAppSelector(state => state.user);
-    const { refetch: todosRefetch } = useGetTodos(token);
+    const { refetch: todosRefetch } = useGetTodos({ token });
 
     const fetchTodos = async () => {
         const { data: todos } = await todosRefetch();

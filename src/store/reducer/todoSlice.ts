@@ -11,11 +11,11 @@ const todoSlice = createSlice({
     reducers: {
         ADD: (state, { payload }) => {
             if(state.items) {
-                state.items.push(payload.items);
+                state.items.push(payload);
                 return;
             };
             
-            state.items = payload.items;
+            state.items = payload;
         },
         GET: (state, { payload }) => {
             state.items = payload;

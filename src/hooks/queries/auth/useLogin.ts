@@ -10,7 +10,7 @@ const useLogin = (userData: IUserForm) => {
         },
         {
             onSuccess: (token) => {
-                if(token) window.localStorage.setItem(STORAGE_KEY, token);
+                if (token) window.localStorage.setItem(STORAGE_KEY, token);
             },
             select: (res) => {
                 if (typeof res === 'string') return res;

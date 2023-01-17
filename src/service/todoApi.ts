@@ -1,7 +1,14 @@
 import { checkErrorFromServer, handleError } from 'utils/handleError';
 import { AUTHORIZATION_KEY, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from './../constants/api';
 import { API_BASE_URL } from 'constants/api';
-import { ITodoForm, ITodoItem } from "types/todo.type";
+import { 
+    ITodoCreateArgs, 
+    ITodoDeleteArgs, 
+    ITodoForm, 
+    ITodoGetArgs, 
+    ITodoItem, 
+    ITodoUpdateArgs 
+} from "types/todo.type";
 
 interface ITodoHeaderProps {
     method?: "POST" | "PUT" | "DELETE";
@@ -10,10 +17,10 @@ interface ITodoHeaderProps {
 }
 
 interface ITodoAPI {
-    getTodos(token: string): Promise<void | ITodoItem[]>;
-    createTodo(token: string, item: ITodoForm): Promise<void | ITodoItem>;
-    updateTodo(token: string, item: ITodoForm, id: string): Promise<void | ITodoItem>;
-    deleteTodo(token: string, itemId: string): Promise<void | string>;
+    getTodos({ token }: ITodoGetArgs): Promise<void | ITodoItem[]>;
+    createTodo({ token, item }: ITodoCreateArgs): Promise<void | ITodoItem>;
+    updateTodo({ token, item, id }: ITodoUpdateArgs): Promise<void | ITodoItem>;
+    deleteTodo({ token, id }: ITodoDeleteArgs): Promise<void | string>;
 }
 
 class TodoAPI implements ITodoAPI {
@@ -49,7 +56,7 @@ class TodoAPI implements ITodoAPI {
         return new Error("Undefined Error");
     }
 
-    getTodos = async (token: string): Promise<void | ITodoItem[]> => {
+    getTodos = async ({ token }: ITodoGetArgs): Promise<void | ITodoItem[]> => {
         try {
             const response = await fetch(`${this.END_POINT}`, 
                 this.convertRequestBody({ token })
@@ -65,7 +72,7 @@ class TodoAPI implements ITodoAPI {
         }
     }
 
-    createTodo = async (token: string, item: ITodoForm): Promise<void | ITodoItem> => {
+    createTodo = async ({ token, item }: ITodoCreateArgs): Promise<void | ITodoItem> => {
         try {
             const response = await fetch(this.END_POINT, 
                 this.convertRequestBody({ method: 'POST', token, content: item })
@@ -81,7 +88,7 @@ class TodoAPI implements ITodoAPI {
         }
     }
 
-    updateTodo = async (token: string, item: ITodoForm, id: string): Promise<void | ITodoItem> => {
+    updateTodo = async ({ token, item, id }: ITodoUpdateArgs): Promise<void | ITodoItem> => {
         try {
             const response = await fetch(`${this.END_POINT}/${id}`, 
                 this.convertRequestBody({ method: 'PUT', token, content: item })
@@ -97,9 +104,9 @@ class TodoAPI implements ITodoAPI {
         }
     }
 
-    deleteTodo = async (token: string, itemId: string): Promise<void | string> => {
+    deleteTodo = async ({ token, id }: ITodoDeleteArgs): Promise<void | string> => {
         try {
-            const response = await fetch(`${this.END_POINT}/${itemId}`, 
+            const response = await fetch(`${this.END_POINT}/${id}`, 
                 this.convertRequestBody({ method: "DELETE", token })
             )
             .then(res => res.json())
@@ -107,7 +114,7 @@ class TodoAPI implements ITodoAPI {
 
             if(response instanceof Error) throw response;
 
-            if(response === null) return itemId;
+            if(response === null) return id;
         } catch (error) {
             handleError(error, "통신이 실패했습니다.");
         }
