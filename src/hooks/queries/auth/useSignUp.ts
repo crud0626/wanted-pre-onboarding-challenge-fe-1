@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from '@tanstack/react-query';
 import { authService } from "service/auth";
 import { IUserForm } from 'types/auth.type';
 import { STORAGE_KEY } from "constants/storage";

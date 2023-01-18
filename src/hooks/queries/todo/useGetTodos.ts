@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
 import { todoApi } from 'service/todoApi';
-import { useQuery } from "react-query";
 
 interface IProps {
     token: string | null;

@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { STORAGE_KEY } from 'constants/storage';
 import { authService } from 'service/auth';
 import { IUserForm } from 'types/auth.type';
