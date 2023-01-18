@@ -9,9 +9,10 @@ import { STORAGE_KEY } from 'constants/storage';
 
 const Router = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
-    const storageToken = window.localStorage.getItem(STORAGE_KEY);
 
     useEffect(() => {
+        const storageToken = window.localStorage.getItem(STORAGE_KEY);
+        
         if(!storageToken) {
             navigate('/login');
             return;

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-interface IProps<S, F> {
+interface IProps<S> {
     initialState: S;
-    onSubmit: F;
 }
 
-const useForm = <S, F extends Function>({ initialState, onSubmit }: IProps<S, F>) => {
+const useForm = <S>({ initialState }: IProps<S>) => {
     const [formData, setFormData] = useState(initialState);
 
     const handleChange = (
@@ -15,15 +14,9 @@ const useForm = <S, F extends Function>({ initialState, onSubmit }: IProps<S, F>
         setFormData({ ...formData, [name]: value });
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        onSubmit();
-    }
-
     return {
         formData,
-        handleChange,
-        handleSubmit
+        handleChange
     };
 }
 

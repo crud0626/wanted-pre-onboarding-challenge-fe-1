@@ -1,10 +1,9 @@
 import React from 'react';
+import { useForm } from 'hooks/useForm';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useForm } from 'hooks/useForm';
 import { useUpdateTodo } from 'hooks/queries/todo/useUpdateTodo';
 import { useCreateTodo } from 'hooks/queries/todo/useCreateTodo';
-import { ADD, UPDATE } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import DetailBtn from '../DetailBtn';
 import { StyledDetailForm } from './DetailForm.styles';
@@ -17,7 +16,9 @@ const DetailForm = () => {
     const { mutateAsync: fetchUpdateTodo } = useUpdateTodo();
 
     // 리팩토링예정
-    const onSubmit = async (): Promise<void> => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+        e.preventDefault();
+        
         if(token) {
             if(selectedItem) {
                 const updatedItem = await fetchUpdateTodo({ 
@@ -29,7 +30,6 @@ const DetailForm = () => {
                 if(updatedItem) {
                     dispatch(CHANGE_IS_EDIT(null));
                     dispatch(CHANGE_SELECTED_ITEM(updatedItem));
-                    dispatch(UPDATE(updatedItem));
                 }
 
                 return;
@@ -41,7 +41,6 @@ const DetailForm = () => {
             })
             .then(item => {
                 if(item) {
-                    dispatch(ADD(item));
                     dispatch(CHANGE_SELECTED_ITEM(item));
                     dispatch(CHANGE_IS_EDIT(null));
                 }
@@ -49,16 +48,15 @@ const DetailForm = () => {
         }
     }
 
-    const { formData, handleChange, handleSubmit } = useForm({
+    const { formData, handleChange } = useForm({
         initialState: {
             title: '',
             content: ''
-        },
-        onSubmit
+        }
     });
 
     return (
-        <StyledDetailForm onSubmit={handleSubmit}>
+        <StyledDetailForm onSubmit={onSubmit}>
             <div className='title_wrapper'>
                 <input 
                     type="text" 

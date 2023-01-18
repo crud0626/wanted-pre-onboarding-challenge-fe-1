@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DELETE } from 'store/reducer/todoSlice';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -13,20 +12,18 @@ import editIcon from 'assets/edit-icon.png';
 const DetailContent = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
     const { token, selectedItem } = useAppSelector(state => state.user);
+    const { mutateAsync: fetchRemoveTodo } = useDeleteTodo();
 
     const onEdit = useCallback((): void => {
         dispatch(CHANGE_IS_EDIT(null));
     }, [dispatch]);
 
-    const { mutateAsync: fetchRemoveTodo } = useDeleteTodo();
-
     const onRemove = async (): Promise<void> => {
         if(token && selectedItem) {
-            const deleteItemId = await fetchRemoveTodo({ token, id: selectedItem.id});
+            const result = await fetchRemoveTodo({ token, id: selectedItem.id});
 
-            if(deleteItemId) {
+            if(result === null) {
                 dispatch(CHANGE_SELECTED_ITEM(null));
-                dispatch(DELETE(deleteItemId));
                 navigate('/');
             }
         }

@@ -9,23 +9,23 @@ import ValidBox from './ValidBox/ValidBox';
 
 const SignUpBox = () => {
     const navigate = useNavigate();
+    const { mutateAsync: fetchSignUp } = useSignUp();
 
-    const onSubmit = async () => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
         if(isValidEmail && isValidPassword) {
-            const res = await mutateAsync();
+            const res = await fetchSignUp(formData);
             if (res) navigate('/');
         }
     }
 
-    const { formData, handleChange, handleSubmit } = useForm({
+    const { formData, handleChange } = useForm({
         initialState: {
             email: '',
             password: ''
-        },
-        onSubmit
+        }
     });
-
-    const { mutateAsync } = useSignUp(formData);
 
     const isValidEmail = validationEmail.test(formData.email);
     const isValidPassword = validationPassword.test(formData.password);
@@ -33,7 +33,7 @@ const SignUpBox = () => {
     return (
         <StyledSignUpBox>
             <h2 className='title'>Sign Up</h2>
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form" onSubmit={onSubmit}>
                 <div>
                     <StyledInputBox 
                         type={"text"}

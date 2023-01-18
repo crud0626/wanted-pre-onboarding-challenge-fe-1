@@ -10,30 +10,30 @@ import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
 
 const LoginBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
+    const { data: token, mutateAsync: fetchLogin } = useLogin();
 
-    const onSubmit = async (): Promise<void> => {
-        const { data: resToken } = await loginRefetch();
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+        e.preventDefault();
+        
+        await fetchLogin(formData);
 
-        if(resToken) {
-            dispatch(CHANGE_USER(resToken))
+        if(token) {
+            dispatch(CHANGE_USER(token))
             navigate('/');
         };
     }
 
-    const { formData, handleChange, handleSubmit } = useForm({
+    const { formData, handleChange } = useForm({
         initialState: {
             email: '',
             password: ''
-        },
-        onSubmit
+        }
     });
-
-    const { refetch: loginRefetch } = useLogin(formData);
 
     return (
         <StyledLoginBox>
             <h2 className='title'>Log in</h2>
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form" onSubmit={onSubmit}>
                 <StyledInputBox 
                     type={"text"}
                     name={"email"}
