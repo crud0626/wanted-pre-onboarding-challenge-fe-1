@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { todoApi } from 'service/todoApi';
+import { todoApi } from 'service/todoService';
 import { ITodoUpdateArgs } from 'types/todo.type';
 
 const useUpdateTodo = () => {

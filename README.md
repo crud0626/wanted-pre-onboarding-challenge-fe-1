@@ -1,5 +1,34 @@
 # wanted-pre-onboarding-challenge-fe
 
+폴더구조
+
+```
+├─assets
+├─components
+│  ├─Footer
+│  ├─Header
+│  ├─Router
+│  └─Section
+│      ├─DetailBox
+│      │  ├─DetailContent
+│      │  └─DetailForm
+│      ├─LoginBox
+│      ├─SignUpBox
+│      │  └─ValidBox
+│      └─TodoBox
+│          └─TodoList
+├─config
+├─constants
+├─hooks
+│  └─queries
+│      ├─auth
+│      └─todo
+├─pages
+├─service
+├─store
+│  └─reducer
+├─styl
+
 ## 프로젝트 소개
 
 - 투두리스트 메인화면
@@ -16,10 +45,11 @@
 ### 기술스택
 
 - React
+- React-query
 - React-router
 - Redux
+- TypeScript
 - Styled-components
-- JavaScript
 
 ## Todo List
 
@@ -54,3 +84,4 @@
 
 - 한 페이지 내에서 새로고침 없이 데이터가 정합성을 갖추도록 구현해주세요
   - [x] 수정되는 Todo의 내용이 목록에서도 실시간으로 반영되어야 합니다
+```

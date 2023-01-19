@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react';
 import { StyledTodoBox, TodoFooter } from './TodoBox.styles';
 import TodoList from './TodoList/TodoList';
-import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppDispatch } from 'hooks/common/useAppDispatch';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
-import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
+import { RoundSubmitBtn } from 'styles/common/RoundSubmitBtn';
+
 
 const TodoBox = () => {
     const dispatch = useAppDispatch();
@@ -17,9 +18,9 @@ const TodoBox = () => {
         <StyledTodoBox>
             <TodoList />
             <TodoFooter>
-                <StyledSubmitBtn onClick={handleClick}>
+                <RoundSubmitBtn onClick={handleClick}>
                     New
-                </StyledSubmitBtn>
+                </RoundSubmitBtn>
             </TodoFooter>
         </StyledTodoBox>
     );

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import * as sizes from 'styles/common/sizes';
 import * as colors from 'styles/common/colors';
-import { RoundedBox } from 'styles/mixins/RoundedBox';
+import { roundBox } from 'styles/mixins/roundBox';
 
 const LogoutBtn = styled.button`
-    ${RoundedBox}
+    ${roundBox}
     position: absolute;
     right: ${sizes.space_5x};
     width: auto;

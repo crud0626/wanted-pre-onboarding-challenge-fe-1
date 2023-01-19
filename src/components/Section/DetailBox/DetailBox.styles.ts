@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import WrapperBox from "styles/mixins/WrapperBox";
+import { wrapperBox } from 'styles/mixins/wrapperBox';
 
 const StyledDetailBox = styled.div`
-    ${WrapperBox}
+    ${wrapperBox}
     display: flex;
     flex-direction: column;
 `;

@@ -1,5 +1,5 @@
 import { checkErrorFromServer, handleError } from 'utils/handleError';
-import { AUTHORIZATION_KEY, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from './../constants/api';
+import { AUTHORIZATION_KEY, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from '../constants/api';
 import { API_BASE_URL } from 'constants/api';
 import { 
     ITodoCreateArgs, 

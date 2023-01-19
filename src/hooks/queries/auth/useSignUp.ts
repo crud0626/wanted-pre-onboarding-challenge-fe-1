@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { authService } from "service/auth";
+import { authService } from "service/authService";
 import { IUserForm } from 'types/auth.type';
 import { STORAGE_KEY } from "constants/storage";
 

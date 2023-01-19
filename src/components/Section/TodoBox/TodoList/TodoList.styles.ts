@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import * as colors from 'styles/common/colors';
 import * as sizes from 'styles/common/sizes';
-import { RoundedBox } from 'styles/mixins/RoundedBox';
+import { roundBox } from "styles/mixins/roundBox";
 
 const StyledTodoList = styled.ul`
     width: 100%;
@@ -10,7 +10,7 @@ const StyledTodoList = styled.ul`
 `;
 
 const TodoItem = styled.li`
-    ${RoundedBox}
+    ${roundBox}
     margin-bottom: ${sizes.space_4x};
     border: 1px solid ${colors.mainBorderColor};
     background: ${colors.mainWhiteColor};

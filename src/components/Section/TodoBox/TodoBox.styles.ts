@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import WrapperBox from "styles/mixins/WrapperBox";
 import * as sizes from 'styles/common/sizes';
 import * as colors from 'styles/common/colors';
+import { wrapperBox } from 'styles/mixins/wrapperBox';
 
 const TodoFooter = styled.div`
     flex: 0 0;
@@ -10,7 +10,7 @@ const TodoFooter = styled.div`
 `;
 
 const StyledTodoBox = styled.div`
-    ${WrapperBox}
+    ${wrapperBox}
     display: flex;
     flex-direction: column;
     justify-content: space-between;

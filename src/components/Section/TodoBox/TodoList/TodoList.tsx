@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useAppSelector } from 'hooks/useAppSelector';
+import { useAppDispatch } from 'hooks/common/useAppDispatch';
+import { useAppSelector } from 'hooks/common/useAppSelector';
 import { useGetTodos } from 'hooks/queries/todo/useGetTodos';
 import { StyledTodoList, TodoItem } from './TodoList.styles';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';

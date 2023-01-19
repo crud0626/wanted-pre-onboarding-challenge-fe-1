@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
-import { useAppSelector } from 'hooks/useAppSelector';
-import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/common/useAppSelector';
+import { useAppDispatch } from 'hooks/common/useAppDispatch';
 import { useDeleteTodo } from 'hooks/queries/todo/useDeleteTodo';
 import { StyledDetailContent } from './DetailContent.styles';
 import TitleBtn from '../DetailBtn';

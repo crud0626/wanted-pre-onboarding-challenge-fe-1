@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { RoundedBox } from 'styles/mixins/RoundedBox';
+import { roundBox } from 'styles/mixins/roundBox';
 import * as sizes from 'styles/common/sizes';
 import * as colors from 'styles/common/colors';
 
-const StyledSubmitBtn = styled.button`
-    ${RoundedBox}
+const RoundSubmitBtn = styled.button`
+    ${roundBox}
     justify-content: center;
     border: 1px solid ${colors.mainBorderColor};
     background: ${colors.buttonBgColor};
@@ -18,4 +18,4 @@ const StyledSubmitBtn = styled.button`
     }
 `;
 
-export { StyledSubmitBtn };
+export { RoundSubmitBtn };

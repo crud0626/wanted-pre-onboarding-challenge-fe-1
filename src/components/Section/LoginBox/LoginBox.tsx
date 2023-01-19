@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useForm } from 'hooks/useForm';
+import { useForm } from 'hooks/common/useForm';
+import { useAppDispatch } from 'hooks/common/useAppDispatch';
 import { useLogin } from 'hooks/queries/auth/useLogin';
 import { CHANGE_USER } from 'store/reducer/userSlice';
 import { StyledLoginBox } from './LoginBox.styles';
-import { StyledInputBox } from 'styles/StyledInputBox';
-import { StyledSubmitBtn } from 'styles/StyledSubmitBtn';
+import { RoundTextField } from 'styles/common/RoundTextField';
+import { RoundSubmitBtn } from 'styles/common/RoundSubmitBtn';
+
 
 const LoginBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
@@ -34,21 +35,21 @@ const LoginBox = () => {
         <StyledLoginBox>
             <h2 className='title'>Log in</h2>
             <form className="form" onSubmit={onSubmit}>
-                <StyledInputBox 
+                <RoundTextField 
                     type={"text"}
                     name={"email"}
                     placeholder="이메일을 입력해주세요." 
                     onChange={handleChange}
                 />
-                <StyledInputBox 
+                <RoundTextField 
                     type={"password"}
                     name={"password"}
                     placeholder="패스워드를 입력해주세요."
                     onChange={handleChange}
                 />
-                <StyledSubmitBtn>
+                <RoundSubmitBtn>
                     Log in
-                </StyledSubmitBtn>
+                </RoundSubmitBtn>
             </form>
             <button 
                 className='signUpBtn' 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from 'hooks/useAppSelector';
-import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/common/useAppSelector';
+import { useAppDispatch } from 'hooks/common/useAppDispatch';
 import { LogoutBtn, StyledHeader } from './Header.styles';
 import { CHANGE_USER } from 'store/reducer/userSlice';
 import { STORAGE_KEY } from 'constants/storage';

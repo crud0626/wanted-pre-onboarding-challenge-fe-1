@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'hooks/useForm';
+import { useForm } from 'hooks/common/useForm';
 import { useSignUp } from 'hooks/queries/auth/useSignUp';
-import { StyledInputBox } from 'styles/StyledInputBox';
+import { RoundTextField } from 'styles/common/RoundTextField';
 import { SignUpSubmitBtn, StyledSignUpBox } from './SignUpBox.styles';
 import { validationEmail, validationPassword } from 'constants/validation';
 import ValidBox from './ValidBox/ValidBox';
@@ -35,7 +35,7 @@ const SignUpBox = () => {
             <h2 className='title'>Sign Up</h2>
             <form className="form" onSubmit={onSubmit}>
                 <div>
-                    <StyledInputBox 
+                    <RoundTextField 
                         type={"text"}
                         name={"email"}
                         placeholder={"이메일을 입력해주세요." }
@@ -47,7 +47,7 @@ const SignUpBox = () => {
                     />
                 </div>
                 <div>
-                    <StyledInputBox 
+                    <RoundTextField 
                         type={"password"}
                         name={"password"}
                         placeholder={"패스워드를 입력해주세요."}

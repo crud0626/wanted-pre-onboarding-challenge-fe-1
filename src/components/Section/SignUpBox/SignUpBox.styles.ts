@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import WrapperBox from "styles/mixins/WrapperBox";
 import * as sizes from 'styles/common/sizes';
 import * as colors from 'styles/common/colors';
-import { StyledSubmitBtn } from "styles/StyledSubmitBtn";
+import { wrapperBox } from 'styles/mixins/wrapperBox';
+import { RoundSubmitBtn } from "styles/common/RoundSubmitBtn";
 
 interface IProps {
     isValid: boolean;
 }
 
-const SignUpSubmitBtn = styled(StyledSubmitBtn)<IProps>`
+const SignUpSubmitBtn = styled(RoundSubmitBtn)<IProps>`
     ${props => 
         !props.isValid &&
         `
@@ -35,7 +35,7 @@ const StyledSignUpBox = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    ${WrapperBox}
+    ${wrapperBox}
 
     & > .title {
         font-size: ${sizes.headerFontSize};
