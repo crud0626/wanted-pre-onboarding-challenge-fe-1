@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from 'hooks/common/useForm';
 import { useSignUp } from 'hooks/queries/auth/useSignUp';
 import { RoundTextField } from 'styles/common/RoundTextField';
@@ -8,17 +7,7 @@ import { validationEmail, validationPassword } from 'constants/validation';
 import ValidBox from './ValidBox/ValidBox';
 
 const SignUpBox = () => {
-    const navigate = useNavigate();
     const { mutateAsync: fetchSignUp } = useSignUp();
-
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        
-        if(isValidEmail && isValidPassword) {
-            const res = await fetchSignUp(formData);
-            if (res) navigate('/');
-        }
-    }
 
     const { formData, handleChange } = useForm({
         initialState: {
@@ -26,9 +15,15 @@ const SignUpBox = () => {
             password: ''
         }
     });
-
+    
     const isValidEmail = validationEmail.test(formData.email);
     const isValidPassword = validationPassword.test(formData.password);
+
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        if (isValidEmail && isValidPassword) fetchSignUp(formData);
+    }
 
     return (
         <StyledSignUpBox>
