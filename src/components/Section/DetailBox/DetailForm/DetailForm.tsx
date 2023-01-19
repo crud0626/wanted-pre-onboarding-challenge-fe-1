@@ -7,7 +7,13 @@ import { useCreateTodo } from 'hooks/queries/todo/useCreateTodo';
 import { CHANGE_IS_EDIT, CHANGE_SELECTED_ITEM } from 'store/reducer/userSlice';
 import DetailBtn from '../DetailBtn';
 import { StyledDetailForm } from './DetailForm.styles';
+import { ITodoUpdateArgs } from 'types/todo.type';
+import { PickPartial } from 'types/custom.type';
 import completeIcon from 'assets/complete-icon.png';
+
+function checkUpdateArg(arg: any): arg is ITodoUpdateArgs {
+    return arg.id !== undefined;
+}
 
 const DetailForm = () => {
     const dispatch = useAppDispatch();
@@ -15,36 +21,26 @@ const DetailForm = () => {
     const { mutateAsync: fetchCreateTodo } = useCreateTodo();
     const { mutateAsync: fetchUpdateTodo } = useUpdateTodo();
 
-    // 리팩토링예정
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         
         if(token) {
-            if(selectedItem) {
-                const updatedItem = await fetchUpdateTodo({ 
-                    token, 
-                    item: formData, 
-                    id: selectedItem.id
-                });
-
-                if(updatedItem) {
-                    dispatch(CHANGE_IS_EDIT(null));
-                    dispatch(CHANGE_SELECTED_ITEM(updatedItem));
-                }
-
-                return;
+            const commonArgs: PickPartial<ITodoUpdateArgs, 'id'> = {
+                token,
+                item: formData,
+                ...(selectedItem && { id: selectedItem.id })
             }
 
-            fetchCreateTodo({
-                token,
-                item: formData
-            })
-            .then(item => {
-                if(item) {
-                    dispatch(CHANGE_SELECTED_ITEM(item));
-                    dispatch(CHANGE_IS_EDIT(null));
-                }
-            });
+            const isUpdate = selectedItem && checkUpdateArg(commonArgs);
+
+            const resItem = isUpdate
+                ? await fetchUpdateTodo(commonArgs) 
+                : await fetchCreateTodo(commonArgs);
+            
+            if(resItem) {
+                dispatch(CHANGE_SELECTED_ITEM(resItem));
+                dispatch(CHANGE_IS_EDIT(null));
+            }
         }
     }
 
