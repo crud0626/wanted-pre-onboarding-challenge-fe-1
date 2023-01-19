@@ -22,7 +22,7 @@ const DetailContent = () => {
         if(token && selectedItem) {
             const result = await fetchRemoveTodo({ token, id: selectedItem.id});
 
-            if(result === null) {
+            if(result) {
                 dispatch(CHANGE_SELECTED_ITEM(null));
                 navigate('/');
             }
