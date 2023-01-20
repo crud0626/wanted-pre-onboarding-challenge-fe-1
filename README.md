@@ -23,9 +23,9 @@
 
 - server
 
-[wanted-pre-onboarding-challenge-fe-1-api](https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api) fork 후 클론
-
 ```
+> cd backend
+
 > yarn install
 
 > yarn start # http://localhost:8080
@@ -34,6 +34,8 @@
 - client
 
 ```
+> cd client
+
 > npm install
 
 > npm start # http://localhost:3000
