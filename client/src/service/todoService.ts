@@ -1,6 +1,6 @@
 import { checkErrorFromServer, handleError } from 'utils/handleError';
 import { AUTHORIZATION_KEY, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from '../constants/api';
-import { API_BASE_URL } from 'constants/api';
+
 import { 
     ITodoCreateArgs, 
     ITodoDeleteArgs, 
@@ -24,11 +24,7 @@ interface ITodoAPI {
 }
 
 class TodoAPI implements ITodoAPI {
-    private END_POINT: string;
-
-    constructor() {
-        this.END_POINT = `${API_BASE_URL}/todos`;
-    }
+    private END_POINT = `${process.env.REACT_APP_API_END_POINT}/todos`;
 
     private convertRequestBody({ method, token, content }: ITodoHeaderProps): RequestInit {
         const request: RequestInit = { 

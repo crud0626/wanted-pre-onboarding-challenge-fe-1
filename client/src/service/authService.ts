@@ -1,4 +1,4 @@
-import { API_BASE_URL, CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from "constants/api";
+import { CONTENT_TYPE_KEY, JSON_CONTENT_TYPE } from "constants/api";
 import { IUserForm } from "types/auth.type";
 import { checkErrorFromServer, handleError } from "utils/handleError";
 
@@ -14,11 +14,7 @@ interface IAuthService {
 }
 
 class AuthService implements IAuthService {
-    private END_POINT: string;
-
-    constructor() {
-        this.END_POINT = `${API_BASE_URL}/users`;
-    }
+    private END_POINT = `${process.env.REACT_APP_API_END_POINT}/users`;
 
     private convertRequestBody(data: IUserForm): IFetchOption {
         return {
