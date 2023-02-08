@@ -1,5 +1,24 @@
 # wanted-pre-onboarding-challenge-fe
 
+<div align=center>
+  <img src="https://img.shields.io/badge/CRA-5.0.1-09D3AC?&logo=createreactapp" />
+  <img src="https://img.shields.io/badge/React-^18.2.0-61DAFB?logo=react" />
+  <img src="https://img.shields.io/badge/React_Router-^6.6.1-CA4245?logo=reactrouter&logoColor=white" />
+  <img src="https://img.shields.io/badge/React_Query-^4.22.0-FF4154?logo=reactquery&logoColor=white" />
+</div>
+<div align=center>
+  <img src="https://img.shields.io/badge/Styled_Components-^5.3.6-DB7093?logo=styledcomponents&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-^4.9.4-3178C6?logo=typescript&logoColor=white" />
+</div>
+<br>
+
+### 데모링크 : [crud0626-todolist.vercel.app](https://crud0626-todolist.vercel.app/)
+
+|| 테스트 계정 |
+|---|---|
+|ID|`abcd@naver.com`|
+|PW|`12345678`|
+
 ## 프로젝트 설명
 
 - **[메인 페이지]**<br> 투두리스트 아이템 추가, 수정, 삭제
@@ -35,6 +54,9 @@
 
 ```
 > cd client
+
+# API 엔드포인트 설정
+> echo REACT_APP_API_END_POINT=http://localhost:8080 > .env
 
 > npm install
 
