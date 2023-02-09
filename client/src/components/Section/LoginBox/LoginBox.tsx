@@ -11,17 +11,16 @@ import { RoundSubmitBtn } from 'styles/common/RoundSubmitBtn';
 
 const LoginBox = () => {
     const dispatch = useAppDispatch(), navigate = useNavigate();
-    const { data: token, mutateAsync: fetchLogin } = useLogin();
+    const { mutateAsync: fetchLogin } = useLogin();
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         
-        await fetchLogin(formData);
-
-        if(token) {
+        fetchLogin(formData)
+        .then(token => {
             dispatch(CHANGE_USER(token))
             navigate('/');
-        };
+        })
     }
 
     const { formData, handleChange } = useForm({

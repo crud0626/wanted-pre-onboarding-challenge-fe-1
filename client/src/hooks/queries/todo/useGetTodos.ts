@@ -11,6 +11,7 @@ const useGetTodos = ({ token }: IProps) => {
             if (token) return todoApi.getTodos({ token });
         },
         {
+            enabled: token !== null,
             select: (res) => {
                 if (Array.isArray(res)) return res;
             }
